@@ -1,0 +1,22 @@
+{
+  "name": "japscan-pagesaver",
+  "version": "1.0.0",
+  "description": "chorme extension for saving page on Japscan",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BastienBoymond/JapScan-PageSaver.git"
+  },
+  "keywords": [
+    "JapScan"
+  ],
+  "author": "BastienBoymond",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BastienBoymond/JapScan-PageSaver/issues"
+  },
+  "homepage": "https://github.com/BastienBoymond/JapScan-PageSaver#readme"
+}
