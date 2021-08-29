@@ -37,11 +37,21 @@ function resumeReading(manga) {
     });
 }
 
+async function saveMangaName(mangaName) {
+    let japscan_manga_name = await get_stored_value("japscan_manga_name");
+    if (japscan_manga_name === undefined) {
+        japscan_manga_name = [mangaName]
+        store_value("japscan_manga_name", japscan_manga_name);
+    } else {
+        japscan_manga_name.find(manga => manga === mangaName) ? console.log("Already saved") : store_value("japscan_manga_name", [...japscan_manga_name, mangaName]);
+    }
+}
+
 function saveReading(urlParams) {
     const key = urlParams[0];
     const value = {chapter: parseInt(urlParams[1]), page: urlParams[2] === "" ? 1 : parseInt(urlParams[2])};
-    console.log(value)
     store_value(key, value);
+    saveMangaName(key);
 }
 
 function startSaving() {
@@ -54,7 +64,7 @@ function startSaving() {
     } else {
         const params = urlParams.shift();
         if (params === "manga") {
-            console.log(`In manga's menu of ${urlParams[1]}`)
+            console.log(`In manga's menu of ${urlParams[0]}`)
             resumeReading(urlParams[0]);
         } else {
             console.log("In Reading")
