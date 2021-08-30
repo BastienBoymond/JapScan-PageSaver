@@ -42,3 +42,13 @@ button {
 button:hover {
     filter: brightness(0.85);
 }
+
+.scroll-bar {
+    overflow-y: auto;
+    height: 80%;
+}
+
+.goBack {
+    border-radius: 50px;
+    width: 12%;
+}
