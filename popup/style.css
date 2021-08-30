@@ -1,0 +1,44 @@
+body {
+    background: url(assets/background.jpeg);
+    width: 400px;
+    height: 450px;
+    text-align: center;
+    align-items: center;
+}
+
+button {
+    border: none;
+    color: black;
+    padding: 15px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    width: 50%;
+    margin: 15px; /* or whatever you like */
+}
+
+.red {
+    background-color: #f44336;
+}
+
+.green {
+    background-color: #4CAF50;
+}
+
+.blue {
+    background-color: #2196F3;
+}
+
+.grey {
+    background-color: #9E9E9E;
+}
+
+.github-buttons {
+    border-radius: 50px;
+    width: 12%;
+}
+
+button:hover {
+    filter: brightness(0.85);
+}

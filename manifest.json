@@ -5,7 +5,7 @@
     "version": "1.0",
     "permissions": [
         "storage"
-    ],  
+    ],
     "content_scripts": [
         {
             "matches": [
@@ -15,15 +15,14 @@
             "js": ["index.js"]
         }
     ],
-    "web_accessible_resources": ["popup/links.js"],
     "browser_action": {
-        "default_icon": "japscan.png",
-        "default_popup": "popup/popup.html",
+        "default_icon": "popup/assets/japscan.png",
+        "default_popup": "popup/home/popup.html",
         "default_title": "JapScan Saver"
     },
     "icons": { 
-        "16": "japscan.png",
-        "48": "japscan.png",
-        "128": "japscan.png" 
+        "16": "popup/assets/japscan.png",
+        "48": "popup/assets/japscan.png",
+        "128": "popup/assets/japscan.png"
       }
 }
