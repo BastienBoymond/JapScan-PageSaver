@@ -1,0 +1,22 @@
+name: Create Archive and Publish on chrome
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Archive Release
+      uses: thedoctor0/zip-release@master
+      with:
+        type: 'zip'
+        filename: 'JapScan_PageSaver.zip'
+        exclusions: '*.git* /*node_modules/* .editorconfig'
+    - uses: Klemensas/chrome-extension-upload-action@$VERSION
+    - name: Publish to Chrome Store
+      with:
+        refresh-token: '${{secrets.refreshtoken}}'
+        client-id: '${{secrets.clientid}}'
+        client-secret: '${{secrets.clientsecret}}'
+        file-name: './JapScan_PageSaver.zip'
+        app-id: '${{secrets.appid}}'
+        publish: true
