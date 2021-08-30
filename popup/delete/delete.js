@@ -37,11 +37,13 @@ createButtonDeletes();
 window.onclick = async function(event) {
     let mangaList = await get_stored_value('japscan_manga_name');
     const target = event.target;
-    if (mangaList && target.className !== 'scroll-bar delete-content') {
+    if (mangaList && target.className !== 'scroll-bar delete-content' && target.className !== 'goBack') {
         const manga = mangaList.find(manga => manga === target.className);
         mangaList = mangaList.filter(manga => manga !== target.className);
         delete_value(manga);
         store_value('japscan_manga_name', mangaList);
         document.getElementsByClassName('delete-content')[0].removeChild(target);
+    } else if (target.className === "goBack") {
+        window.location.href = '../home/popup.html'
     }
 }

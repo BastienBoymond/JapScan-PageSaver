@@ -32,9 +32,11 @@ createButtonResumes();
 
 window.onclick = async function(event) {
     const target = event.target;
-    if (target.className !== 'scroll-bar resume-content') {
+    if (target.className !== 'scroll-bar resume-content' && target.className !== 'goBack') {
         const manga = target.className;
         const resume = await get_stored_value(manga);
         window.open(`https://japscan.com/lecture-en-ligne/${manga}/${resume.chapter}/${resume.page}.html`);
+    } else if (target.className === "goBack") {
+        window.location.href = '../home/popup.html'
     }
 }
