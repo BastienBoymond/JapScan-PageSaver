@@ -1,3 +1,23 @@
+async function requestGet(url){
+    let data;
+    try {
+        const res = await fetch(url, {
+            method: 'GET',
+            credentials: 'include',
+        });
+        console.log(res);
+        if ((await res.text()) === 'true') {
+            return true
+        } else {
+            return false
+        }
+    } catch (e) {
+        console.log(e);
+        return false
+    }
+};
+
+
 function get_stored_value(key) {
     return new Promise((resolve) => {
         chrome.storage.sync.get(key, function(value) {
@@ -13,15 +33,21 @@ function store_value(key, value)
     })
 }
 
+
 async function createButtonNews() {
     const mangaList = await get_stored_value('japscan_manga_name');
     if (mangaList) {
         mangaList.map(async (manga) => {
             const resume = await get_stored_value(manga);
-            const button = document.createElement('button');
-            button.innerText = manga + '\n' + 'Ch'+resume.chapter + ' - ' + 'p' +resume.page;
-            button.className = manga;
-            document.getElementsByClassName('news-content')[0].appendChild(button);
+            url_encoded = encodeURIComponent(`lecture-en-ligne/${manga}/${resume.chapter + 1}/${1}.html`);
+            next_page = await requestGet(`http://54.36.183.102:3900/proxy?url=${url_encoded}`);
+            console.log(next_page);
+            if (next_page) {
+                const button = document.createElement('button');
+                button.innerText = manga + '\n' + 'Ch'+ (resume.chapter + 1) + ' - ' + 'p' + 1;
+                button.className = manga;
+                document.getElementsByClassName('news-content')[0].appendChild(button);
+            }
         });
     }
 }
@@ -34,7 +60,7 @@ window.onclick = async function(event) {
     if (target.className !== 'scroll-bar news-content'  && target.className !== 'goBack' && target.className !== 'fas fa-arrow-left') {
         const manga = target.className;
         const resume = await get_stored_value(manga);
-        window.open(`https://japscan.com/lecture-en-ligne/${manga}/${resume.chapter}/${resume.page}.html`);
+        window.open(`https://japscan.com/lecture-en-ligne/${manga}/${resume.chapter + 1}/${1}.html`);
     } else if (target.className === "goBack" || target.className === "fas fa-arrow-left") {
         window.location.href = '../home/popup.html'
     }

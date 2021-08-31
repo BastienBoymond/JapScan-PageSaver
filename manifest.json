@@ -2,9 +2,10 @@
     "manifest_version": 2,
     "name": "JapScan_PageSaver",
     "description": "Extension for Save Chapter and Page of Current Manga you read",
-    "version": "1.0",
+    "version": "1.5",
     "permissions": [
-        "storage"
+        "storage",
+        "http://54.36.183.102:3900/*"
     ],
     "content_scripts": [
         {
