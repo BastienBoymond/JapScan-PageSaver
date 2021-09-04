@@ -1,4 +1,4 @@
-
+const baseUrl = "https://www.japscan.ws/"
 
 function get_stored_value(key) {
     return new Promise((resolve) => {
@@ -20,18 +20,36 @@ function delete_value(key)
     chrome.storage.sync.remove(key);
 }
 
-function resumeReading(manga) {
+function createButton() {
+    container = document.getElementsByClassName('m-2')[0];
+    container.innerHTML += `<button class="resume-button" style="border: none;
+    color: black;
+    padding: 15px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 15% 35%;"
+    >Resume</button>`;
+}
+
+function resumeReading(manga, forceResume) {
     const key = manga;
     console.log(key)
     get_stored_value(key).then((value) => {
         if (value === undefined) {
             return;
         }
-        console.log(value)
         const chapter = value.chapter;
         const page = value.page;
         const url = `https://www.japscan.ws/lecture-en-ligne/${manga}/${chapter}/${page}.html`;
-        if (confirm(`Resume reading ${manga} chapter ${chapter} page ${page} ?`)) {
+        if (!forceResume) {
+            if (confirm(`Resume reading ${manga} chapter ${chapter} page ${page} ?`)) {
+                window.location.href = url;
+            } else {
+                createButton();
+            }
+        } else {
             window.location.href = url;
         }
     });
@@ -55,7 +73,6 @@ function saveReading(urlParams) {
 }
 
 function startSaving() {
-    const baseUrl = "https://www.japscan.ws/"
     const url = window.location.toString();
     const urlParams = url.replace(baseUrl, "").split("/");
     if (urlParams[0] !== "lecture-en-ligne" && urlParams[0] !== "manga") {
@@ -65,7 +82,7 @@ function startSaving() {
         const params = urlParams.shift();
         if (params === "manga") {
             console.log(`In manga's menu of ${urlParams[0]}`)
-            resumeReading(urlParams[0]);
+            resumeReading(urlParams[0], false);
         } else {
             console.log("In Reading")
             saveReading(urlParams);
@@ -74,3 +91,27 @@ function startSaving() {
 }
 
 startSaving();
+
+window.onclick = function(event) {
+    const target = event.target;
+    if (target.matches('.resume-button')) {
+        const url = window.location.toString();
+        const urlParams = url.replace(baseUrl, "").split("/");
+        urlParams.shift();
+        resumeReading(urlParams[0], true);
+    }
+}
+
+window.onmouseover = function(event) {
+    const target = event.target;
+    if (target.matches('.resume-button')) {
+        target.style.opacity  = "0.5";
+    }
+}
+
+window.onmouseout = function(event) {
+    const target = event.target;
+    if (target.matches('.resume-button')) {
+        target.style.opacity  = "1";
+    }
+}
