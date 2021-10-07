@@ -37,18 +37,27 @@ function store_value(key, value)
 async function createButtonNews() {
     const mangaList = await get_stored_value('japscan_manga_name');
     if (mangaList) {
-        mangaList.map(async (manga) => {
+        for (const manga of mangaList) {
             const resume = await get_stored_value(manga);
             url_encoded = encodeURIComponent(`lecture-en-ligne/${manga}/${resume.chapter + 1}/${1}.html`);
             next_page = await requestGet(`http://54.36.183.102:3900/proxy?url=${url_encoded}`);
-            console.log(next_page);
             if (next_page) {
-                const button = document.createElement('button');
-                button.innerText = manga + '\n' + 'Ch'+ (resume.chapter + 1) + ' - ' + 'p' + 1;
-                button.className = manga;
-                document.getElementsByClassName('news-content')[0].appendChild(button);
+                spoiler = await requestGet(`http://54.36.183.102:3900/spoiler/?url=${url_encoded}`);
+                console.log(next_page, spoiler, manga, url_encoded);
+                if (!spoiler) {
+                    const button = document.createElement('button');
+                    button.innerText = manga + '\n' + 'Ch'+ (resume.chapter + 1) + ' - ' + 'p' + 1;
+                    button.className = manga;
+                    document.getElementsByClassName('news-content')[0].appendChild(button);
+                } else {
+                    const button = document.createElement('button');
+                    button.innerText = '/!\\ Spoiler /!\\ ' + '\n' + manga + '\n' + 'Ch'+ (resume.chapter + 1) + ' - ' + 'p' + 1;
+                    button.className = manga;
+                    button.style.backgroundColor = '#ff0000';
+                    document.getElementsByClassName('news-content')[0].appendChild(button);
+                }
             }
-        });
+        }
     }
 }
 
