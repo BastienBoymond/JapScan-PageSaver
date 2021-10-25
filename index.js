@@ -36,23 +36,29 @@ function createResumeButton() {
 async function createAnimeButton(manga) {
     const url_encoded = encodeURIComponent(manga);
     chrome.runtime.sendMessage({text: `http://54.36.183.102:2900/anime/search?term=${url_encoded}`}, function(response) {
-        let data = JSON.parse(response);
-        data.animes = data.animes.sort((a, b) => a.season - b.season);
-        document.getElementsByClassName('rounded-0 card-body')[0].innerHTML += `<div class="anime-view" style="text-align: center;"></div>`;
-        document.getElementsByClassName('anime-view')[0].innerHTML += `<br>`;
-        document.getElementsByClassName('anime-view')[0].innerHTML += `<h3>Anime Season Link</h3>`;
-        data.animes.forEach(anime => {
-            container = document.getElementsByClassName('anime-view')[0];
-            container.innerHTML += `<button class="anime-button" id="${anime.link}" style="border: none;
-            color: black;
-            padding: 15px;
-            text-align: center;
-            display: inline-block;
-            font-size: 16px;
-            cursor: pointer;
-            margin: 5% 10%;"
-            >${anime.season}</button>`;
-        });
+        console.log(response);
+        if (!response.includes('Error')) {
+            let data = JSON.parse(response);
+            data.animes = data.animes.sort((a, b) => a.season - b.season);
+            document.getElementsByClassName('rounded-0 card-body')[0].innerHTML += `<div class="anime-view" style="text-align: center;"></div>`;
+            document.getElementsByClassName('anime-view')[0].innerHTML += `<br>`;
+            document.getElementsByClassName('anime-view')[0].innerHTML += `<h3>Anime Season Link</h3>`;
+            data.animes.forEach(anime => {
+                container = document.getElementsByClassName('anime-view')[0];
+                container.innerHTML += `<button class="anime-button" id="${anime.link}" style="border: none;
+                color: black;
+                padding: 15px;
+                text-align: center;
+                display: inline-block;
+                font-size: 16px;
+                cursor: pointer;
+                margin: 5% 10%;"
+                >${anime.season}</button>`;
+            });
+        } else {
+            document.getElementsByClassName('rounded-0 card-body')[0].innerHTML += `<div class="anime-view" style="text-align: center;"></div>`;
+            document.getElementsByClassName('anime-view')[0].innerHTML += `<h3>No Anime Link</h3>`;        
+        }
     });
 }
 
