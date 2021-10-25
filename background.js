@@ -19,6 +19,18 @@ async function requestGet(url){
     }
 };
 
+async function requestGetData(url){
+    try {
+        const res = await fetch(url, {
+            method: 'GET',
+            credentials: 'include',
+        });
+        return(res.text());
+    } catch (e) {
+        return (e);
+    }
+};
+
 function get_stored_value(key) {
     return new Promise((resolve) => {
         chrome.storage.sync.get(key, function(value) {
@@ -92,3 +104,13 @@ chrome.alarms.onAlarm.addListener((alarm) => {
         check_news();
     }
 });
+
+chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+    doSomethingWith(msg).then(sendResponse);
+    return true;
+  });
+  
+async function doSomethingWith(msg) {
+    let data = await requestGetData(`${msg.text}`);
+    return data;
+}

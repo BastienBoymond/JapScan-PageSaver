@@ -20,7 +20,7 @@ function delete_value(key)
     chrome.storage.sync.remove(key);
 }
 
-function createButton() {
+function createResumeButton() {
     container = document.getElementsByClassName('m-2')[0];
     container.innerHTML += `<button class="resume-button" style="border: none;
     color: black;
@@ -31,6 +31,29 @@ function createButton() {
     cursor: pointer;
     margin: 15% 35%;"
     >Resume</button>`;
+}
+
+async function createAnimeButton(manga) {
+    const url_encoded = encodeURIComponent(manga);
+    chrome.runtime.sendMessage({text: `http://54.36.183.102:2900/anime/search?term=${url_encoded}`}, function(response) {
+        let data = JSON.parse(response);
+        data.animes = data.animes.sort((a, b) => a.season - b.season);
+        document.getElementsByClassName('rounded-0 card-body')[0].innerHTML += `<div class="anime-view" style="text-align: center;"></div>`;
+        document.getElementsByClassName('anime-view')[0].innerHTML += `<br>`;
+        document.getElementsByClassName('anime-view')[0].innerHTML += `<h3>Anime Season Link</h3>`;
+        data.animes.forEach(anime => {
+            container = document.getElementsByClassName('anime-view')[0];
+            container.innerHTML += `<button class="anime-button" id="${anime.link}" style="border: none;
+            color: black;
+            padding: 15px;
+            text-align: center;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 5% 10%;"
+            >${anime.season}</button>`;
+        });
+    });
 }
 
 function resumeReading(manga, forceResume) {
@@ -44,11 +67,7 @@ function resumeReading(manga, forceResume) {
         const page = value.page;
         const url = `https://www.japscan.ws/lecture-en-ligne/${manga}/${chapter}/${page}.html`;
         if (!forceResume) {
-            if (confirm(`Resume reading ${manga} chapter ${chapter} page ${page} ?`)) {
-                window.location.href = url;
-            } else {
-                createButton();
-            }
+            createResumeButton();
         } else {
             window.location.href = url;
         }
@@ -83,6 +102,7 @@ function startSaving() {
         if (params === "manga") {
             console.log(`In manga's menu of ${urlParams[0]}`)
             resumeReading(urlParams[0], false);
+            createAnimeButton(urlParams[0]);
         } else {
             console.log("In Reading")
             saveReading(urlParams);
@@ -94,11 +114,14 @@ startSaving();
 
 window.onclick = function(event) {
     const target = event.target;
+    console.log(target);
     if (target.matches('.resume-button')) {
         const url = window.location.toString();
         const urlParams = url.replace(baseUrl, "").split("/");
         urlParams.shift();
         resumeReading(urlParams[0], true);
+    } else if (target.matches('.anime-button')) {
+        window.location.href = target.id;
     }
 }
 
