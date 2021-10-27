@@ -30,7 +30,4 @@ To download this extension I invite you to go to this <a href="https://chrome.go
     <a href="https://i.imgur.com/Kiuib0c.png"><img src="https://i.imgur.com/Kiuib0c.png" title="Popup" width="400px"/></a>
 
 * Site View:
-    <div>
-        <h2>With modification</h2>
-        <a href="https://i.imgur.com/oFIj4Yf.png"><img src="https://i.imgur.com/oFIj4Yf.png" title="Site avec modification" /></a>
-    <div>
+    <a href="https://i.imgur.com/oFIj4Yf.png"><img src="https://i.imgur.com/oFIj4Yf.png" title="Site avec modification" /></a>
