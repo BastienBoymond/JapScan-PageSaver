@@ -1,23 +1,23 @@
-# JapScan-PagaSaver
+<div align="center">
+    <h1>Japscan-PageSaver Extension</h1>
+    [![Chrome Web Store](https://img.shields.io/chrome-web-store/stars/oennheijilebmieelbahckofblcgkljn?label=Stars&color=brightgreen&logo=googlechrome&style=for-the-badge)](https://chrome.google.com/webstore/detail/japscanpagesaver/oennheijilebmieelbahckofblcgkljn?hl=fr&authuser=0)
+    [![Chrome Web Store](https://img.shields.io/chrome-web-store/users/oennheijilebmieelbahckofblcgkljn?color=brightgreen&logo=googlechrome&style=for-the-badge)](https://chrome.google.com/webstore/detail/japscanpagesaver/oennheijilebmieelbahckofblcgkljn?hl=fr&authuser=0)
+    [![Chrome Web Store](https://img.shields.io/chrome-web-store/v/oennheijilebmieelbahckofblcgkljn?color=brightgreen&logo=googlechrome&style=for-the-badge)](https://chrome.google.com/webstore/detail/japscanpagesaver/oennheijilebmieelbahckofblcgkljn?hl=fr&authuser=0)
 
-That was a Extension for Japscan.ws that save manga page and chapter for you 
+</div>
 
-### Clone repository
+## :notebook: Description :notebook:
 
-    git clone https://github.com/BastienBoymond/JapScan-PageSaver.git
-    
-### Load the unpack Extension
+In the beginning, This extension was created to save the pages of the <a href="https://www.japscan.ws/">**Japscan**</a> website.
 
-#### Google Chrome
+But I add some features into it like the following:
 
-You can download this extensions at this links:
+* Save the pages of the Japcan website in the background.
+* Creation of a popup window that shows the saved pages and the possible news pages.
+* In manga page of the Japscan website, I add button link to the anime of the manga.
+* Every 24h hour I check the news of the Japscan website and if a news Chapter exist i send you a notification.
 
-    https://chrome.google.com/webstore/detail/japscanpagesaver/oennheijilebmieelbahckofblcgkljn?hl=fr&authuser=0
+## :cd:	Download :cd:
 
-Or
 
-- Paste "chrome://extensions/" in your url.
-
-- Activate Developer Mode
-
-- Load the folder Epixtension with "Load unpacked".
+To download this extension I invite you to go to this <a href="https://chrome.google.com/webstore/detail/japscanpagesaver/oennheijilebmieelbahckofblcgkljn?hl=fr&authuser=0">link</a>
