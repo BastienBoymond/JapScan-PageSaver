@@ -72,8 +72,9 @@ function createNotification(newsPage) {
 
 async function check_news() {
     let newsPage = [];
-    const mangaList = await get_stored_value('japscan_manga_name');
-    if (mangaList) {
+    const mangaList = await get_stored_value('allow_news_japscan');
+    if (mangaList && mangaList.length > 0) {
+        console.log(mangaList);
         const promise = mangaList.map(async (manga) => {
             const resume = await get_stored_value(manga);
             url_encoded = encodeURIComponent(`lecture-en-ligne/${manga}/${resume.chapter + 1}/${1}.html`);
