@@ -22,8 +22,12 @@ async function createButtonNotif() {
             const button = document.createElement('button');
             button.innerText = manga;
             button.className = 'manga';
-            if (mangaNotif.find(item => item === manga)) {
-                button.style.backgroundColor = '#008000';
+            if (mangaNotif) {
+                if (mangaNotif.find(item => item === manga)) {
+                    button.style.backgroundColor = '#008000';
+                } else {
+                    button.style.backgroundColor = '#ff0000';
+                }
             } else {
                 button.style.backgroundColor = '#ff0000';
             }
