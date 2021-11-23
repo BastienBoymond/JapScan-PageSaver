@@ -8,5 +8,7 @@ window.onclick = function(event) {
         window.location.href = '../resume/resume.html'
     } else if (target.matches('.delete-buttons')) {
         window.location.href = '../delete/delete.html'
+    } else if (target.matches('.notif-buttons')) {
+        window.location.href = '../notif/notif.html'
     }
 }
