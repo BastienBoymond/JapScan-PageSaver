@@ -66,6 +66,11 @@ async function createButtonNews() {
         p.innerText = 'No News page';
         p.style.color = '#ff0000';
         document.getElementsByClassName('news-content')[0].appendChild(p);
+        const gif = document.createElement('img');
+        gif.style.width = '50%';
+        gif.style.height = '50%';
+        gif.src = '../assets/no_news.gif';
+        document.getElementsByClassName('news-content')[0].appendChild(gif);
     }
 }
 
