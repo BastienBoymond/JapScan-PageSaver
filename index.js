@@ -85,11 +85,15 @@ function resumeReading(manga, forceResume) {
 
 function createScrollingButton()
 {
-    document.getElementsByClassName('row justify-content-center')[0].innerHTML += `<button class="scrolling" style="
-    color: black;
-    text-align: center;
-    display: inline;
-    cursor: pointer;">Scroll</button>`;
+    container = document.getElementsByClassName('row justify-content-center')[0];
+    button = document.createElement('button');
+    button.className = "scrolling";
+    button.innerHTML = "Scrolling";
+    button.style.color = "black";
+    button.style.textAlign = "center";
+    button.style.display = "inline";
+    button.style.cursor = "pointer";
+    container.appendChild(button);
 }
 
 async function saveMangaName(mangaName) {
