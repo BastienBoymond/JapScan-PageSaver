@@ -174,4 +174,4 @@ setInterval( () => {
             window.location.href = document.getElementsByClassName("d-flex justify-content-center mt-3")[0].getElementsByTagName('a')[0].href;
         }
     }
-}, 25);
+}, 18);

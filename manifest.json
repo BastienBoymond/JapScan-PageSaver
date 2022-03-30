@@ -1,14 +1,16 @@
 {
-    "manifest_version": 2,
+    "manifest_version": 3,
     "name": "JapScan_PageSaver",
     "description": "Extension for Save Chapter and Page of Current Manga you read",
-    "version": "2.9",
+    "version": "3.0",
     "permissions": [
         "storage",
-        "http://54.36.183.102:3900/*",
-        "http://54.36.183.102:2900/*",
         "notifications",
         "alarms"
+    ],
+    "host_permissions": [
+        "http://54.36.183.102:3900/*",
+        "http://54.36.183.102:2900/*"
     ],
     "content_scripts": [
         {
@@ -20,10 +22,9 @@
         }
     ],
     "background": {
-        "scripts": ["background.js"],
-        "persistent": false
+        "service_worker": "background.js"
     },
-    "browser_action": {
+    "action": {
         "default_icon": "popup/assets/japscan.png",
         "default_popup": "popup/home/popup.html",
         "default_title": "JapScan Saver"
