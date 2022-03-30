@@ -1,4 +1,8 @@
 const baseUrl = "https://www.japscan.ws/"
+let scrolling = false;
+get_stored_value("scrolling").then((value) => {
+    scrolling = value;
+});
 
 function get_stored_value(key) {
     return new Promise((resolve) => {
@@ -36,7 +40,6 @@ function createResumeButton() {
 async function createAnimeButton(manga) {
     const url_encoded = encodeURIComponent(manga);
     chrome.runtime.sendMessage({text: `http://54.36.183.102:2900/anime/search?term=${url_encoded}`}, function(response) {
-        console.log(response);
         if (!response.includes('Error')) {
             let data = JSON.parse(response);
             data.animes = data.animes.sort((a, b) => a.season - b.season);
@@ -80,6 +83,15 @@ function resumeReading(manga, forceResume) {
     });
 }
 
+function createScrollingButton()
+{
+    document.getElementsByClassName('row justify-content-center')[0].innerHTML += `<button class="scrolling" style="
+    color: black;
+    text-align: center;
+    display: inline;
+    cursor: pointer;">Scroll</button>`;
+}
+
 async function saveMangaName(mangaName) {
     let japscan_manga_name = await get_stored_value("japscan_manga_name");
     if (japscan_manga_name === undefined) {
@@ -95,6 +107,7 @@ function saveReading(urlParams) {
     const value = {chapter: parseInt(urlParams[1]), page: urlParams[2] === "" ? 1 : parseInt(urlParams[2])};
     store_value(key, value);
     saveMangaName(key);
+    createScrollingButton();
 }
 
 function startSaving() {
@@ -118,9 +131,8 @@ function startSaving() {
 
 startSaving();
 
-window.onclick = function(event) {
+window.onclick = (event) => {
     const target = event.target;
-    console.log(target);
     if (target.matches('.resume-button')) {
         const url = window.location.toString();
         const urlParams = url.replace(baseUrl, "").split("/");
@@ -128,19 +140,34 @@ window.onclick = function(event) {
         resumeReading(urlParams[0], true);
     } else if (target.matches('.anime-button')) {
         window.location.href = target.id;
+    } else if (target.matches('.scrolling')) {
+        store_value("scrolling", !scrolling)
+        scrolling = !scrolling;
     }
 }
 
-window.onmouseover = function(event) {
+window.onmouseover = (event) => {
     const target = event.target;
     if (target.matches('.resume-button')) {
         target.style.opacity  = "0.5";
     }
 }
 
-window.onmouseout = function(event) {
+window.onmouseout = (event) => {
     const target = event.target;
     if (target.matches('.resume-button')) {
         target.style.opacity  = "1";
     }
 }
+
+setInterval( () => {
+    const url = window.location.toString();
+    const urlParams = url.replace(baseUrl, "").split("/");
+    const params = urlParams.shift();
+    if (scrolling == true && params == "lecture-en-ligne") {
+        window.scroll(window.scrollX, window.scrollY + 1);
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight * (1 - 0.18)) {
+            window.location.href = document.getElementsByClassName("d-flex justify-content-center mt-3")[0].getElementsByTagName('a')[0].href;
+        }
+    }
+}, 25);
