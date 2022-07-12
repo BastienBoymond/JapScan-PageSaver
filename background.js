@@ -1,4 +1,4 @@
-const baseUrl = "https://www.japscan.ws/"
+const baseUrl = "https://www.japscan.me/"
 
 async function requestGet(url){
     let data;
