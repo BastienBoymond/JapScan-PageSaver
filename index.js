@@ -1,4 +1,4 @@
-const baseUrl = "https://www.japscan.ws/"
+const baseUrl = "https://www.japscan.me/"
 let scrolling = false;
 get_stored_value("scrolling").then((value) => {
     scrolling = value;
