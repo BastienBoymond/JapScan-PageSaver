@@ -18,6 +18,16 @@ button {
     margin: 15px;
 }
 
+input {
+    width: 50%;
+    padding: 5px;
+    margin-bottom: 5px;
+    height: 40px;
+    border-radius: 5px;
+    outline: none;
+    font-size: medium;
+  }
+
 .red {
     background-color: #f44336;
 }
@@ -49,7 +59,7 @@ button:hover {
 
 .scroll-bar {
     overflow-y: auto;
-    height: 80%;
+    height: 70%;
 }
 
 .goBack {
