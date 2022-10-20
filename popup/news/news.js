@@ -46,18 +46,18 @@ async function createButtonNews() {
                 newsPage.push(manga);
                 spoiler = await requestGet(`http://54.36.183.102:3900/spoiler/?url=${url_encoded}`);
                 console.log(next_page, spoiler, manga, url_encoded);
+                const button = document.createElement('button');
                 if (!spoiler) {
-                    const button = document.createElement('button');
                     button.innerText = manga + '\n' + 'Ch'+ (resume.chapter + 1) + ' - ' + 'p' + 1;
                     button.className = manga;
-                    document.getElementsByClassName('news-content')[0].appendChild(button);
                 } else {
-                    const button = document.createElement('button');
                     button.innerText = '/!\\ Spoiler /!\\ ' + '\n' + manga + '\n' + 'Ch'+ (resume.chapter + 1) + ' - ' + 'p' + 1;
                     button.className = manga;
                     button.style.backgroundColor = '#ff0000';
-                    document.getElementsByClassName('news-content')[0].appendChild(button);
                 }
+                if (!button.innerText.replaceAll('-', ' ').includes(document.getElementById("search-manga").value) || !button.innerText.includes(document.getElementById("search-manga").value))
+                    button.style.display = 'none';
+                document.getElementsByClassName('news-content')[0].appendChild(button);
             }
         }
     }
@@ -90,7 +90,6 @@ window.onclick = async function(event) {
 
 window.addEventListener('input', async (event) => {
     const searchContent = event.target.value;
-    console.log(searchContent);
     document.querySelectorAll('button').forEach((button) => {
         if (button.innerText.includes(searchContent)) {
             button.style.display = 'inline-block';
