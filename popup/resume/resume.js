@@ -21,7 +21,8 @@ async function createButtonResumes() {
         mangaList.map(async (manga) => {
             const resume = await get_stored_value(manga);
             const button = document.createElement('button');
-            button.innerText = manga + '\n' + 'Ch'+resume.chapter + ' - ' + 'p' +resume.page;
+            const chOrVol = resume.type === 'volume' ? 'Vol' : 'Ch';
+            button.innerText = manga + '\n' + chOrVol +resume.chapter + ' - ' + 'p' +resume.page;
             button.className = manga;
             document.getElementsByClassName('resume-content')[0].appendChild(button);
         });
@@ -35,7 +36,8 @@ window.onclick = async function(event) {
     if (target.className !== 'scroll-bar resume-content' && target.className !== 'goBack' && target.className !== 'fas fa-arrow-left') {
         const manga = target.className;
         const resume = await get_stored_value(manga);
-        window.open(`https://japscan.com/lecture-en-ligne/${manga}/${resume.chapter}/${resume.page}.html`);
+        const type = resume.type === 'volume' ? 'volume-' : '';
+        window.open(`https://japscan.com/lecture-en-ligne/${manga}/${type}${resume.chapter}/${resume.page}.html`);
     } else if (target.className === "goBack" || target.className === "fas fa-arrow-left") {
         window.location.href = '../home/popup.html'
     }
