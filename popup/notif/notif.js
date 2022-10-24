@@ -1,18 +1,5 @@
 
-function get_stored_value(key) {
-    return new Promise((resolve) => {
-        chrome.storage.sync.get(key, function(value) {
-            resolve(value[key]);
-        });
-    });
-}
-
-function store_value(key, value)
-{
-    chrome.storage.sync.set({
-        [key]: value,
-    })
-}
+import { get_stored_value, store_value } from '../../module/storage';
 
 async function createButtonNotif() {
     const mangaList = await get_stored_value('japscan_manga_name');

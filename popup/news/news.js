@@ -1,38 +1,5 @@
-async function requestGet(url){
-    let data;
-    try {
-        const res = await fetch(url, {
-            method: 'GET',
-            credentials: 'include',
-        });
-        console.log(res);
-        if ((await res.text()) === 'true') {
-            return true
-        } else {
-            return false
-        }
-    } catch (e) {
-        console.log(e);
-        return false
-    }
-};
-
-
-function get_stored_value(key) {
-    return new Promise((resolve) => {
-        chrome.storage.sync.get(key, function(value) {
-            resolve(value[key]);
-        });
-    });
-}
-
-function store_value(key, value)
-{
-    chrome.storage.sync.set({
-        [key]: value,
-    })
-}
-
+import {requestGet} from '../../module/request.js';
+import {get_stored_value} from '../../module/storage.js';
 
 async function createButtonNews() {
     const mangaList = await get_stored_value('japscan_manga_name');
@@ -41,11 +8,11 @@ async function createButtonNews() {
         for (const manga of mangaList) {
             const resume = await get_stored_value(manga);
             const type = resume.type === 'volume' ? 'volume-' : '';
-            url_encoded = encodeURIComponent(`lecture-en-ligne/${manga}/${type}${resume.chapter + 1}/${1}.html`);
-            next_page = await requestGet(`http://54.36.183.102:3900/proxy?url=${url_encoded}`);
+            const url_encoded = encodeURIComponent(`lecture-en-ligne/${manga}/${type}${resume.chapter + 1}/${1}.html`);
+            const next_page = await requestGet(`http://54.36.183.102:3900/proxy?url=${url_encoded}`);
             if (next_page) {
                 newsPage.push(manga);
-                spoiler = await requestGet(`http://54.36.183.102:3900/spoiler/?url=${url_encoded}`);
+                const spoiler = await requestGet(`http://54.36.183.102:3900/spoiler/?url=${url_encoded}`);
                 console.log(next_page, spoiler, manga, url_encoded);
                 const button = document.createElement('button');
                 const chOrVol = resume.type === 'volume' ? 'Vol' : 'Ch';
@@ -91,16 +58,3 @@ window.onclick = async function(event) {
     }
 }
 
-window.addEventListener('input', async (event) => {
-    const searchContent = event.target.value;
-    document.querySelectorAll('button').forEach((button) => {
-        if (button.innerText.includes(searchContent)) {
-            button.style.display = 'inline-block';
-        } else if (button.innerText.replaceAll('-', ' ').includes(searchContent)) {
-            button.style.display = 'inline-block';
-        } else {
-            if (button.className === 'goBack') return;
-            button.style.display = 'none';
-        }
-    });
-});
