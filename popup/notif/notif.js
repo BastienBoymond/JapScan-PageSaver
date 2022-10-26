@@ -1,5 +1,5 @@
 
-import { get_stored_value, store_value } from '../../module/storage';
+import { get_stored_value, store_value } from '../../module/storage.js';
 
 async function createButtonNotif() {
     const mangaList = await get_stored_value('japscan_manga_name');
