@@ -35,10 +35,11 @@ input {
     justify-content: space-between;
 }
 
-.grey {
-    background-color: #9E9E9E;
-}
-
 button:hover {
     filter: brightness(0.85);
+}
+
+.github {
+    background-color: #9E9E9E;
+    border-radius: 13px;
 }
