@@ -1,5 +1,5 @@
-import {requestGet} from '../../module/request.js';
-import {get_stored_value} from '../../module/storage.js';
+import {requestGet} from '../module/request.js';
+import {get_stored_value} from '../module/storage.js';
 
 async function createButtonNews() {
     const mangaList = await get_stored_value('japscan_manga_name');

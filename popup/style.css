@@ -1,9 +1,10 @@
 body {
     background: url(assets/background.jpeg);
-    width: 400px;
-    height: 450px;
+    width: 500px;
+    height: 550px;
     text-align: center;
     align-items: center;
+    overflow-y: scroll;
 }
 
 button {
@@ -14,7 +15,7 @@ button {
     display: inline-block;
     font-size: 16px;
     cursor: pointer;
-    width: 50%;
+    width: 30%;
     margin: 15px;
 }
 
@@ -26,43 +27,18 @@ input {
     border-radius: 5px;
     outline: none;
     font-size: medium;
-  }
-
-.red {
-    background-color: #f44336;
 }
 
-.green {
-    background-color: #4CAF50;
-}
-
-.blue {
-    background-color: #2196F3;
-}
-
-.purple {
-    background-color: #9C27B0;
+.scroll-bar {
+    overflow-y: auto;
+    height: 350px;
+    justify-content: space-between;
 }
 
 .grey {
     background-color: #9E9E9E;
 }
 
-.github-buttons {
-    border-radius: 50px;
-    width: 12%;
-}
-
 button:hover {
     filter: brightness(0.85);
-}
-
-.scroll-bar {
-    overflow-y: auto;
-    height: 70%;
-}
-
-.goBack {
-    border-radius: 50px;
-    width: 12%;
 }

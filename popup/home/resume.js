@@ -1,4 +1,4 @@
-import { get_stored_value} from "../../module/storage.js";
+import { get_stored_value} from "../module/storage.js";
 
 async function createButtonResumes() {
     const mangaList = await get_stored_value('japscan_manga_name');
