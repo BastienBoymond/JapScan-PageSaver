@@ -1,4 +1,5 @@
-import { get_stored_value} from "../module/storage.js";
+import {get_stored_value} from "../module/storage.js";
+import {loadtheme} from '../module/theming.js';
 
 async function createButtonResumes() {
     const mangaList = await get_stored_value('japscan_manga_name');
@@ -27,3 +28,5 @@ window.onclick = async function(event) {
         window.location.href = '../home/popup.html'
     }
 }
+
+loadtheme();

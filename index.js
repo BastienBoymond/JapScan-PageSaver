@@ -177,3 +177,21 @@ setInterval( () => {
         }
     }
 }, 18);
+
+async function darkTheme() {
+    theme = await get_stored_value("japscan_theme");
+    if (!theme || theme === "light") return;
+    else {
+        document.body.style.backgroundImage = "url('https://i.imgur.com/8wmItH0.png')";
+        if (document.getElementsByTagName('h1')[0]) {
+            document.getElementsByTagName('h1')[0].style.color = "white";
+        }
+        if (window.location.toString() == "https://www.japscan.me/") {
+            document.querySelectorAll('p.text-center').forEach(p => {              
+                p.querySelector('.text-dark').className = "text-white";
+            });
+        }
+    }
+}
+
+darkTheme();
