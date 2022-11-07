@@ -25,7 +25,6 @@ createButtonResumes();
 window.onclick = async function(event) {
     const target = event.target;
     if (target.className !== 'scroll-bar resume-content' && target.className !== 'goBack' && target.className !== 'fas fa-arrow-left') {
-        console.log(target.className);
         if (!target.className.includes('manga'))
             return;
         const manga = target.className.replace(' manga-button', '').replace(' manga-image', '').replace(' manga-title', '').replace(' manga-chapter', '').replace(' manga-page', '');

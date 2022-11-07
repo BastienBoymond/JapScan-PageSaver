@@ -23,8 +23,11 @@ window.onclick = async function(event) {
     let mangaList = await get_stored_value('japscan_manga_name');
     const target = event.target;
     if (mangaList && target.className !== 'scroll-bar delete-content' && target.className !== 'goBack' && target.className !== 'fas fa-arrow-left') {
-        const manga = mangaList.find(manga => manga === target.className);
-        mangaList = mangaList.filter(manga => manga !== target.className);
+        if (!target.className.includes('manga'))
+            return;
+        const targetclass = target.className.replace(' manga-button', '').replace(' manga-image', '').replace(' manga-title', '').replace(' manga-chapter', '').replace(' manga-page', '');
+        const manga = mangaList.find(manga => manga === targetclass);
+        mangaList = mangaList.filter(manga => manga !== targetclass);
         delete_value(manga);
         store_value('japscan_manga_name', mangaList);
         document.getElementsByClassName('delete-content')[0].removeChild(target);
