@@ -17,6 +17,8 @@ button {
     cursor: pointer;
     width: 30%;
     margin: 15px;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 input {
