@@ -30,6 +30,7 @@ input {
 }
 
 .scroll-bar {
+    text-align: center;
     overflow-y: auto;
     height: 350px;
     justify-content: space-between;
@@ -42,4 +43,27 @@ button:hover {
 .github {
     background-color: #9E9E9E;
     border-radius: 13px;
+}
+
+div.manga-button {
+    width: 200px;
+    display: inline-table;
+    margin: 15px;
+    background-color: #9E9E9E;
+    border-radius: 13px;
+}
+
+div.manga-button:hover {
+    filter: brightness(0.85);
+}
+
+img.manga-image {
+    margin: 2%;
+    border-radius: 13px;
+    width: 50%;
+    height: 50%;
+}
+
+div.manga-title {
+    
 }
