@@ -1,5 +1,6 @@
 const baseUrl = "https://www.japscan.me/"
 let scrolling = false;
+let scrollingWrite = false;
 
 get_stored_value("scrolling").then((value) => {
     scrolling = value;
@@ -87,6 +88,7 @@ function resumeReading(manga, forceResume) {
 function createScrollingButton()
 {
     container = document.getElementsByClassName('row justify-content-center')[0];
+    if (scrollingWrite) return;
     button = document.createElement('button');
     button.className = "scrolling";
     button.innerHTML = "Scrolling";
@@ -95,6 +97,7 @@ function createScrollingButton()
     button.style.display = "inline";
     button.style.cursor = "pointer";
     container.appendChild(button);
+    scrollingWrite = true;
 }
 
 async function saveMangaName(mangaName) {
@@ -135,8 +138,6 @@ function startSaving() {
     }
 }
 
-startSaving();
-
 window.onclick = (event) => {
     const target = event.target;
     if (target.matches('.resume-button')) {
@@ -170,13 +171,24 @@ setInterval( () => {
     const url = window.location.toString();
     const urlParams = url.replace(baseUrl, "").split("/");
     const params = urlParams.shift();
-    if (scrolling == true && params == "lecture-en-ligne") {
-        window.scroll(window.scrollX, window.scrollY + 1);
-        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight * (1 - 0.18)) {
-            window.location.href = document.getElementsByClassName("d-flex justify-content-center mt-3")[0].getElementsByTagName('a')[0].href;
+    if (params == "lecture-en-ligne") {
+        if (scrolling == true) {
+            window.scroll(window.scrollX, window.scrollY + 1);
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight * (1 - 0.18)) {
+                window.location.href = document.getElementsByClassName("d-flex justify-content-center mt-3")[0].getElementsByTagName('a')[0].href;
+            }
         }
     }
 }, 18);
+
+setInterval( () => {
+    const url = window.location.toString();
+    const urlParams = url.replace(baseUrl, "").split("/");
+    const params = urlParams.shift();
+    if (params == "lecture-en-ligne") {
+        saveReading(urlParams);
+    }
+}, 1500);
 
 async function darkTheme() {
     theme = await get_stored_value("japscan_theme");
@@ -195,3 +207,7 @@ async function darkTheme() {
 }
 
 darkTheme();
+
+window.onunload = () => {
+    startSaving();
+}

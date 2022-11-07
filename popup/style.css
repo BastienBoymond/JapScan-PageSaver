@@ -35,7 +35,9 @@ input {
     text-align: center;
     overflow-y: auto;
     height: 350px;
-    justify-content: space-between;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
 
 button:hover {
@@ -49,10 +51,13 @@ button:hover {
 
 div.manga-button {
     width: 200px;
-    display: inline-table;
+    height: 170px;
     margin: 15px;
     background-color: #9E9E9E;
     border-radius: 13px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 div.manga-button:hover {
@@ -62,10 +67,39 @@ div.manga-button:hover {
 img.manga-image {
     margin: 2%;
     border-radius: 13px;
-    width: 50%;
-    height: 50%;
+    width: 100px;
+    height: 160px;
+    display: flex;
+}
+
+div.manga-info {
+    width: 95px;
+    display: flex;
+    flex-direction: column;
 }
 
 div.manga-title {
-    
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+/* Size */
+::-webkit-scrollbar {
+    width: 10px;
+}
+  
+/* Track */
+::-webkit-scrollbar-track {
+background: #f1f1f1; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+background: #555; 
 }

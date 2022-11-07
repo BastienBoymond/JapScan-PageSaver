@@ -10,9 +10,11 @@ async function createButtonResumes() {
             button.className = manga + ' manga-button';
             const chOrVol = resume.type === 'volume' ? 'Vol' : 'Ch';
             button.innerHTML =  `<img src="https://www.japscan.me/imgs/mangas/${manga}.jpg" class="${manga} manga-image">
-                                <div class="${manga} manga-title">${manga}</div>
-                                <div class="${manga} manga-chapter">${chOrVol + resume.chapter}</div>
-                                <div class="${manga} manga-page">p${resume.page}</div>`;
+                                <div class="${manga} manga-info">
+                                        <div class="${manga} manga-title">${manga}</div>
+                                        <div class="${manga} manga-chapter">${chOrVol + resume.chapter}</div>
+                                        <div class="${manga} manga-page">p${resume.page}</div>
+                                </div>`;
             document.getElementsByClassName('resume-content')[0].appendChild(button);
         });
     }

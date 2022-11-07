@@ -5,9 +5,13 @@ async function createButtonDeletes() {
     const mangaList = await get_stored_value('japscan_manga_name');
     if (mangaList) {
         mangaList.map(async (manga) => {
-            const button = document.createElement('button');
-            button.innerText = manga;
+            const button = document.createElement('div');
             button.className = manga;
+            button.className = manga + ' manga-button';
+            button.innerHTML =  `<img src="https://www.japscan.me/imgs/mangas/${manga}.jpg" class="${manga} manga-image">
+            <div class="${manga} manga-info">
+                    <div class="${manga} manga-title">${manga}</div>
+            </div>`;
             document.getElementsByClassName('delete-content')[0].appendChild(button);
         });
     }

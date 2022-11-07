@@ -15,14 +15,24 @@ async function createButtonNews() {
                 newsPage.push(manga);
                 const spoiler = await requestGet(`http://54.36.183.102:3900/spoiler/?url=${url_encoded}`);
                 console.log(next_page, spoiler, manga, url_encoded);
-                const button = document.createElement('button');
+                const button = document.createElement('div');
+                button.className = manga + ' manga-button';
                 const chOrVol = resume.type === 'volume' ? 'Vol' : 'Ch';
                 if (!spoiler) {
-                    button.innerText = manga + '\n' + chOrVol + (resume.chapter + 1) + ' - ' + 'p' + 1;
-                    button.className = manga;
+                    button.innerHTML =  `<img src="https://www.japscan.me/imgs/mangas/${manga}.jpg" class="${manga} manga-image">
+                    <div class="${manga} manga-info">
+                            <div class="${manga} manga-title">${manga}</div>
+                            <div class="${manga} manga-chapter">${chOrVol + (resume.chapter + 1)}</div>
+                            <div class="${manga} manga-page">p1</div>
+                    </div>`;
                 } else {
-                    button.innerText = '/!\\ Spoiler /!\\ ' + '\n' + manga + '\n' + chOrVol + (resume.chapter + 1) + ' - ' + 'p' + 1;
-                    button.className = manga;
+                    button.innerHTML =  `<img src="https://www.japscan.me/imgs/mangas/${manga}.jpg" class="${manga} manga-image">
+                    <div class="${manga} manga-info">
+                            <div class="${manga} manga-spoiler">/!\\ Spoiler /!\\</div>
+                            <div class="${manga} manga-title">${manga}</div>
+                            <div class="${manga} manga-chapter">${chOrVol + resume.chapter + 1}</div>
+                            <div class="${manga} manga-page">p1</div>
+                    </div>`;
                     button.style.backgroundColor = '#ff0000';
                 }
                 if (!button.innerText.replaceAll('-', ' ').includes(document.getElementById("search-manga").value) || !button.innerText.includes(document.getElementById("search-manga").value))
