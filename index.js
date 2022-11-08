@@ -203,6 +203,27 @@ async function darkTheme() {
                 p.querySelector('.text-dark').className = "text-white";
             });
         }
+        if (!window.location.toString().includes('lecture-en-ligne')) {
+            document.querySelectorAll('.card').forEach(card => {
+                card.style.setProperty('background-color', 'rgb(52, 58, 64)', 'important');
+            });
+            document.querySelectorAll('.list-group-item').forEach(item => {
+                item.style.setProperty('background-color', 'rgb(52, 58, 64)', 'important');
+                item.style.setProperty('color', 'white', 'important');
+            });
+            document.querySelectorAll('.text-dark').forEach(p => {
+                p.className = "text-white";
+            });
+            document.querySelectorAll('.float-right').forEach(p => {
+                p.className = "float-right text-white";
+            });
+            document.querySelectorAll('.font-weight-bold').forEach(p => {
+                p.className = "font-weight-bold text-white";
+            });
+            document.querySelectorAll('.mb-2').forEach(p => {
+                p.className = "mb-2 text-white";
+            });
+        }
     }
 }
 
