@@ -42,10 +42,6 @@ async function createButtonNews() {
         }
     }
     if (newsPage.length === 0) {
-        const p = document.createElement('p');
-        p.innerText = 'No News page';
-        p.style.color = '#ff0000';
-        document.getElementsByClassName('news-content')[0].appendChild(p);
         const gif = document.createElement('img');
         gif.style.width = '50%';
         gif.style.height = '50%';
