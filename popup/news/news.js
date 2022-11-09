@@ -30,7 +30,7 @@ async function createButtonNews() {
                     <div class="${manga} manga-info">
                             <div class="${manga} manga-spoiler">/!\\ Spoiler /!\\</div>
                             <div class="${manga} manga-title">${manga}</div>
-                            <div class="${manga} manga-chapter">${chOrVol + resume.chapter + 1}</div>
+                            <div class="${manga} manga-chapter">${chOrVol + (resume.chapter + 1)}</div>
                             <div class="${manga} manga-page">p1</div>
                     </div>`;
                     button.style.backgroundColor = '#ff0000';
