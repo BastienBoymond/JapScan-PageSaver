@@ -119,22 +119,29 @@ function saveReading(urlParams) {
     createScrollingButton();
 }
 
+function checkifLoginWithAnilist() {
+    const url = window.location.toString();
+    const urlParams = url.replace(baseUrl, "").split("/");
+    if (urlParams[0]) {
+        code = urlParams[0].split('=')[1];
+        if (code) {
+            store_value("anilist_code", code);
+            window.alert("You are now logged in with Anilist");
+        }
+    }
+}
+
 function startSaving() {
     const url = window.location.toString();
     const urlParams = url.replace(baseUrl, "").split("/");
-    if (urlParams[0] !== "lecture-en-ligne" && urlParams[0] !== "manga") {
-        console.log("Was not in Reading")
-        return;
+    const params = urlParams.shift();
+    if (params === "manga") {
+        console.log(`In manga's menu of ${urlParams[0]}`)
+        resumeReading(urlParams[0], false);
+        createAnimeButton(urlParams[0]);
     } else {
-        const params = urlParams.shift();
-        if (params === "manga") {
-            console.log(`In manga's menu of ${urlParams[0]}`)
-            resumeReading(urlParams[0], false);
-            createAnimeButton(urlParams[0]);
-        } else {
-            console.log("In Reading")
-            saveReading(urlParams);
-        }
+        console.log("In Reading")
+        saveReading(urlParams);
     }
 }
 
@@ -228,6 +235,7 @@ async function darkTheme() {
 }
 
 darkTheme();
+checkifLoginWithAnilist();
 
 window.onunload = () => {
     startSaving();
