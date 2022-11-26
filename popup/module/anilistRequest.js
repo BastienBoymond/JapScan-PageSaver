@@ -6,6 +6,7 @@ async function getUser(token) {
         Viewer{
             id
             name
+            about
             avatar{
                 large
             }
