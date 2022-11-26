@@ -1,19 +1,25 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <title>settings</title>
-      <script type="module" src="settings.js"></script>
+      <title>anilist</title>
+      <script type="module" src="anilist.js"></script>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
       <link rel="stylesheet" type="text/css" href="../style.css">
       <link rel="stylesheet" type="text/css" href="../module/navbar/navbar.css">
+      <link rel="stylesheet" type="text/css" href="../module/searchbar/searchbar.css">
    </head>
    <body>
       <h1>JapScan PageSaver</h1>
       <div include-html="../module/navbar/navbar.html"></div>
-      <button class="switch-theme">change color</button>
+      <br>
+      <div include-html="../module/searchbar/searchbar.html"></div>
+      <button class="Connect-Anilist">Login with AniList</button>
+      <div class="anilist-content">
+      </div>
    </body>
    <footer>
       <script src="../module/includeHTML.js"></script>
+      <script src="../module/searchbar/searchbar.js"></script>
       <script src="../module/navbar/navbar.js" defer></script>
    </footer>
 </html>

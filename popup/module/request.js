@@ -17,6 +17,31 @@ async function requestGet(url){
     }
 };
 
+async function graphqlRequest(token, query, variables) {
+    const url = 'https://graphql.anilist.co';
+    console.log(token);
+    const res = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+            query: query,
+            variables: variables
+        })
+    });
+    if (res.status === 200) {
+        const json = await res.json();
+        return json.data
+    } else {
+        console.log(res);
+        return false
+    }
+}
+
 export {
-    requestGet
+    requestGet,
+    graphqlRequest
 }

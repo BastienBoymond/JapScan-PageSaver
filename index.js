@@ -125,6 +125,7 @@ function checkifLoginWithAnilist() {
     if (urlParams[0]) {
         code = urlParams[0].split('=')[1];
         if (code) {
+            code = code.split('&')[0];
             store_value("anilist_code", code);
             window.alert("You are now logged in with Anilist");
         }

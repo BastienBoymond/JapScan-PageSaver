@@ -10,7 +10,8 @@
     ],
     "host_permissions": [
         "http://54.36.183.102:3900/*",
-        "http://54.36.183.102:2900/*"
+        "http://54.36.183.102:2900/*",
+        "https://anilist.co/*"
     ],
     "content_scripts": [
         {
