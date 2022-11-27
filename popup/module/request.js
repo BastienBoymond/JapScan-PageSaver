@@ -19,7 +19,6 @@ async function requestGet(url){
 
 async function graphqlRequest(token, query, variables) {
     const url = 'https://graphql.anilist.co';
-    console.log(token);
     const res = await fetch(url, {
         method: 'POST',
         headers: {
@@ -36,7 +35,7 @@ async function graphqlRequest(token, query, variables) {
         const json = await res.json();
         return json.data
     } else {
-        console.log(res);
+        console.log(await res.json());
         return false
     }
 }

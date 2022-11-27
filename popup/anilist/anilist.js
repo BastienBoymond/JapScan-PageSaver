@@ -1,6 +1,6 @@
 import {get_stored_value, store_value, delete_value} from '../module/storage.js';
 import { loadtheme } from '../module/theming.js';
-import { getUser, getMangaList } from '../module/anilistRequest.js';
+import { getUser, getMangaList, searchaManga } from '../module/anilistRequest.js';
 
 
 loadtheme();
@@ -102,9 +102,12 @@ async function getStatistics(data) {
 }
 
 async function createMangaList(token, data) {
-    
+    const myMangaList = await get_stored_value('japscan_manga_name');
     const mangalist = await getMangaList(token,  data.Viewer.id);
-    console.log(mangalist);
+    for (const manga of myMangaList) {
+        const data = await searchaManga(token, manga.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '));
+        console.log(data);
+    }
     mangalist.MediaListCollection.lists.forEach(list => {
         if (list.status === null) return;
         list.entries.forEach(manga => {
@@ -125,7 +128,6 @@ async function createMangaList(token, data) {
             } else {
                 mangaProgress.innerText = manga.progress + '/' + manga.media.chapters;
             }
-            // mangaProgress.innerText = manga.progress;
             mangaInfo.appendChild(mangaTitle);
             mangaInfo.appendChild(mangaProgress);
             mangaDiv.appendChild(mangaImg);
