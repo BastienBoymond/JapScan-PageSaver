@@ -237,3 +237,12 @@ div.palier {
     margin-top: 5px;
     font-weight: bold;
 }
+
+div.scrolling {
+    text-align: center;
+    overflow-y: auto;
+    height: 250px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}

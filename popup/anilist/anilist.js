@@ -1,6 +1,6 @@
 import {get_stored_value, store_value, delete_value} from '../module/storage.js';
 import { loadtheme } from '../module/theming.js';
-import { getUser } from '../module/anilistRequest.js';
+import { getUser, getMangaList } from '../module/anilistRequest.js';
 
 
 loadtheme();
@@ -101,6 +101,40 @@ async function getStatistics(data) {
 
 }
 
+async function createMangaList(token, data) {
+    
+    const mangalist = await getMangaList(token,  data.Viewer.id);
+    console.log(mangalist);
+    mangalist.MediaListCollection.lists.forEach(list => {
+        if (list.status === null) return;
+        list.entries.forEach(manga => {
+            const mangaDiv = document.createElement('div');
+            mangaDiv.className = 'manga-button';
+            const mangaImg = document.createElement('img');
+            mangaImg.src = manga.media.coverImage.extraLarge;
+            mangaImg.className = 'manga-image';
+            const mangaInfo = document.createElement('div');
+            mangaInfo.className = 'manga-info';
+            const mangaTitle = document.createElement('h3');
+            mangaTitle.className = 'manga-title';
+            mangaTitle.innerText = manga.media.title.userPreferred;
+            const mangaProgress = document.createElement('p');
+            mangaProgress.className = 'manga-progress';
+            if (manga.media.chapters === null) { 
+                mangaProgress.innerText = manga.progress + '\nOngoing';
+            } else {
+                mangaProgress.innerText = manga.progress + '/' + manga.media.chapters;
+            }
+            // mangaProgress.innerText = manga.progress;
+            mangaInfo.appendChild(mangaTitle);
+            mangaInfo.appendChild(mangaProgress);
+            mangaDiv.appendChild(mangaImg);
+            mangaDiv.appendChild(mangaInfo);
+            document.getElementsByClassName('anilist-entry')[0].appendChild(mangaDiv);
+        });
+    });
+}
+    
 async function checkAnilistToken() {
     const token = await get_stored_value('anilist_code');
     let data = await getUser(token);
@@ -110,6 +144,7 @@ async function checkAnilistToken() {
         document.getElementsByClassName('Connect-Anilist')[0].style.display = 'none';
         createProfile(data);
         getStatistics(data);
+        createMangaList(token, data);
     } else {
         console.log('Token not found');
     }
