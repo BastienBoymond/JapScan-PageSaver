@@ -48,6 +48,7 @@ async function getMangaList(token, id) {
               progress
               repeat
               media {
+                id
                 title {
                   userPreferred
                 }

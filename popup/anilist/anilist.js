@@ -101,40 +101,100 @@ async function getStatistics(data) {
 
 }
 
+function checkifInList(list, id) {
+    const isinList = list.some(manga => manga.id === id);
+
+    if (isinList) {
+        list.forEach(manga => {
+            if (manga.id === id) {
+                store_value(`anilist_id_${manga.title}`, manga.id);
+            }
+        });
+        return true;
+    }
+    return false;
+}
+
+function addManualManga(myMangaList) {
+    const addManga = document.createElement('div');
+    addManga.className = 'add-button';
+    const japscanSelector = document.createElement('div');
+    japscanSelector.className = 'japscan-selector';
+    japscanSelector.innerText = 'Japscan Reading List';
+
+    const select = document.createElement('select');
+    select.className = 'select-manga';
+    const option = document.createElement('option');
+    option.innerText = 'Select a manga';
+    select.appendChild(option);
+    for (let i = 0; i < myMangaList.length; i++) {
+        const option = document.createElement('option');
+        option.value = myMangaList[i];
+        option.innerText = myMangaList[i];
+        select.appendChild(option);
+    }
+    addManga.appendChild(japscanSelector);
+    addManga.appendChild(select);
+    document.getElementsByClassName('anilist-entry')[0].appendChild(addManga);
+}
+
+function createArrayMangaList(mangaList) {
+
+    const myMangaList = [];
+    mangaList.MediaListCollection.lists.forEach(list => {
+        if (list.status === null) return;
+        list.entries.forEach(manga => {
+            console.log(manga);
+            myMangaList.push({idManga: manga.media.id, idList: manga.id});
+        });
+    });
+    store_value('anilist_data', myMangaList);
+}
+
 async function createMangaList(token, data) {
     const myMangaList = await get_stored_value('japscan_manga_name');
     const mangalist = await getMangaList(token,  data.Viewer.id);
+    const idList = [];
     for (const manga of myMangaList) {
         const data = await searchaManga(token, manga.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '));
         console.log(data);
+        if (data.Page.media.length > 0) {
+            data.Page.media.forEach(m => {
+                idList.push({id:m.id, title:manga});
+            });
+        }
     }
+    createArrayMangaList(mangalist)
     mangalist.MediaListCollection.lists.forEach(list => {
         if (list.status === null) return;
         list.entries.forEach(manga => {
-            const mangaDiv = document.createElement('div');
-            mangaDiv.className = 'manga-button';
-            const mangaImg = document.createElement('img');
-            mangaImg.src = manga.media.coverImage.extraLarge;
-            mangaImg.className = 'manga-image';
-            const mangaInfo = document.createElement('div');
-            mangaInfo.className = 'manga-info';
-            const mangaTitle = document.createElement('h3');
-            mangaTitle.className = 'manga-title';
-            mangaTitle.innerText = manga.media.title.userPreferred;
-            const mangaProgress = document.createElement('p');
-            mangaProgress.className = 'manga-progress';
-            if (manga.media.chapters === null) { 
-                mangaProgress.innerText = manga.progress + '\nOngoing';
-            } else {
-                mangaProgress.innerText = manga.progress + '/' + manga.media.chapters;
+            if (checkifInList(idList, manga.media.id)) {
+                const mangaDiv = document.createElement('div');
+                mangaDiv.className = 'manga-button';
+                const mangaImg = document.createElement('img');
+                mangaImg.src = manga.media.coverImage.extraLarge;
+                mangaImg.className = 'manga-image';
+                const mangaInfo = document.createElement('div');
+                mangaInfo.className = 'manga-info';
+                const mangaTitle = document.createElement('h3');
+                mangaTitle.className = 'manga-title';
+                mangaTitle.innerText = manga.media.title.userPreferred;
+                const mangaProgress = document.createElement('p');
+                mangaProgress.className = 'manga-progress';
+                if (manga.media.chapters === null) { 
+                    mangaProgress.innerText = manga.progress + '\nOngoing';
+                } else {
+                    mangaProgress.innerText = manga.progress + '/' + manga.media.chapters;
+                }
+                mangaInfo.appendChild(mangaTitle);
+                mangaInfo.appendChild(mangaProgress);
+                mangaDiv.appendChild(mangaImg);
+                mangaDiv.appendChild(mangaInfo);
+                document.getElementsByClassName('anilist-entry')[0].appendChild(mangaDiv);
             }
-            mangaInfo.appendChild(mangaTitle);
-            mangaInfo.appendChild(mangaProgress);
-            mangaDiv.appendChild(mangaImg);
-            mangaDiv.appendChild(mangaInfo);
-            document.getElementsByClassName('anilist-entry')[0].appendChild(mangaDiv);
         });
     });
+    addManualManga(myMangaList);
 }
     
 async function checkAnilistToken() {

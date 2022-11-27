@@ -158,6 +158,10 @@ div.statistics {
     border-radius: 13px;
 }
 
+div.statistics:hover {
+    filter: brightness(0.85);
+}
+
 div.anilist-content {
     display: flex;
     flex-direction: row;
@@ -245,4 +249,31 @@ div.scrolling {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+}
+
+div.add-button {
+    width: 200px;
+    height: 170px;
+    margin: 15px;
+    background-color: #9E9E9E;
+    border-radius: 13px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+div.add-button:hover {
+    filter: brightness(0.85);
+}
+
+select.select-manga {
+    margin-top: 5px;
+    border-radius: 13px;
+    outline: none;
+    font-size: medium;
+}
+
+div.japscan-selector {
+    margin-top: 10px;
+    font-weight: bold;
 }

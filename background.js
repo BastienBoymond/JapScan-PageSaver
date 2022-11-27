@@ -91,23 +91,22 @@ async function check_news() {
     }
 }
 
-function createAlarm() {
-    chrome.alarms.create("newsAlarm", {
-        when: Date.now(),
-        periodInMinutes: 1440,
-    });
+async function anilist_save(msg) {
+    console.log(msg);
+    data = msg.split('/');
+    data.shift();
+    anilist_id = await get_stored_value('anilist_id_' + data[0]);
+    anilist_data = await get_stored_value('anilist_data');
+    console.log(anilist_data);
+    console.log(anilist_id);
 }
 
-createAlarm();
-
-chrome.alarms.onAlarm.addListener((alarm) => {
-    if (alarm.name == "newsAlarm") {
-        check_news();
-    }
-});
-
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
-    doSomethingWith(msg).then(sendResponse);
+    if (msg.text.includes('update/')) {
+        anilist_save(msg.text);
+    } else {
+        doSomethingWith(msg).then(sendResponse);
+    }
     return true;
   });
   

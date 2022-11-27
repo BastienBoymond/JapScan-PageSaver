@@ -115,6 +115,7 @@ function saveReading(urlParams) {
     const type = urlParams[1].includes("volume-") ? "volume" : "chapter";
     const value = {chapter: parseInt(urlParams[1].replace('volume-', '')), page: urlParams[2] === "" ? 1 : parseInt(urlParams[2]), type: type};
     store_value(key, value);
+    chrome.runtime.sendMessage({text: "update/" + key + "/" + value.chapter + "/" + value.type});
     saveMangaName(key);
     createScrollingButton();
 }

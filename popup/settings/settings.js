@@ -13,6 +13,17 @@ window.onclick = async function(event) {
             }
         }
         loadtheme();
+    } else if (event.target.matches('.auto-anilist')) {
+        const autoAnilist = await get_stored_value('japscan_auto_anilist');
+        if (!autoAnilist) {
+            store_value('japscan_auto_anilist', true);
+        } else {
+            if (autoAnilist) {
+                store_value('japscan_auto_anilist', false);
+            } else {
+                store_value('japscan_auto_anilist', true);
+            }
+        }
     }
 }
 
