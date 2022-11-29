@@ -1,6 +1,6 @@
 import {get_stored_value, store_value, delete_value} from '../module/storage.js';
 import { loadtheme } from '../module/theming.js';
-import { getUser, getMangaList, searchaManga } from '../module/anilistRequest.js';
+import { getUser, getMangaList, searchaManga, getMediaListById } from '../module/anilistRequest.js';
 
 
 loadtheme();
@@ -128,14 +128,19 @@ function addManualManga(myMangaList) {
     option.innerText = 'Select a manga';
     select.appendChild(option);
     for (let i = 0; i < myMangaList.length; i++) {
-        const option = document.createElement('option');
-        option.value = myMangaList[i];
-        option.innerText = myMangaList[i];
-        select.appendChild(option);
+        console.log(myMangaList[i], document.getElementsByClassName(`${myMangaList[i]}`)[0]);
+        if (!document.getElementsByClassName(`${myMangaList[i]}`)[0]) {
+            const option = document.createElement('option');
+            option.value = myMangaList[i];
+            option.innerText = myMangaList[i];
+            select.appendChild(option);
+        }
     }
-    addManga.appendChild(japscanSelector);
-    addManga.appendChild(select);
-    document.getElementsByClassName('anilist-entry')[0].appendChild(addManga);
+    if (select.children.length > 1) {
+        addManga.appendChild(japscanSelector);
+        addManga.appendChild(select);
+        document.getElementsByClassName('anilist-entry')[0].appendChild(addManga);
+    }
 }
 
 function createArrayMangaList(mangaList) {
@@ -171,6 +176,11 @@ async function createMangaList(token, data) {
             if (checkifInList(idList, manga.media.id)) {
                 const mangaDiv = document.createElement('div');
                 mangaDiv.className = 'manga-button';
+                idList.forEach(m => {
+                    if (m.id === manga.media.id) {
+                        mangaDiv.className += ` ${m.title}`;
+                    }
+                });
                 const mangaImg = document.createElement('img');
                 mangaImg.src = manga.media.coverImage.extraLarge;
                 mangaImg.className = 'manga-image';
@@ -204,6 +214,8 @@ async function checkAnilistToken() {
     if (data) {
         console.log('Token found');
         document.getElementsByClassName('Connect-Anilist')[0].style.display = 'none';
+        const test = await getMediaListById(token, 239131111);
+        console.log(test);
         createProfile(data);
         getStatistics(data);
         createMangaList(token, data);

@@ -101,8 +101,29 @@ async function searchaManga(token, mangaName) {
     }`, {page: 0, perPage: 10, search: mangaName});
 }
 
+async function getMediaListById(token, id) {
+    return await graphqlRequest(token, `
+    query ($id: Int) {
+        MediaList(id: $id) {
+            id
+            mediaId
+            status
+            score
+            progress
+            repeat
+            media {
+              id
+              title {
+                userPreferred
+              }
+            }
+        }
+    }`, {id: id});
+}
+
 export {
     getUser,
     getMangaList,
-    searchaManga
+    searchaManga,
+    getMediaListById
 }
