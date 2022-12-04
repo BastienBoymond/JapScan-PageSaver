@@ -31,6 +31,49 @@ async function requestGetData(url){
     }
 };
 
+async function graphqlRequest(token, query, variables) {
+    const url = 'https://graphql.anilist.co';
+    const res = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+            query: query,
+            variables: variables
+        })
+    });
+    if (res.status === 200) {
+        const json = await res.json();
+        return json.data
+    } else {
+        console.log(await res.json());
+        return false
+    }
+}
+
+async function getMediaListById(token, id) {
+    return await graphqlRequest(token, `
+    query ($id: Int) {
+        MediaList(id: $id) {
+            id
+            mediaId
+            status
+            score
+            progress
+            repeat
+            media {
+              id
+              title {
+                userPreferred
+              }
+            }
+        }
+    }`, {id: id});
+}
+
 function get_stored_value(key) {
     return new Promise((resolve) => {
         chrome.storage.sync.get(key, function(value) {
@@ -91,23 +134,52 @@ async function check_news() {
     }
 }
 
-function createAlarm() {
-    chrome.alarms.create("newsAlarm", {
-        when: Date.now(),
-        periodInMinutes: 1440,
+async function anilist_update(ids, chapter, type) {
+    console.log(ids, chapter, type);
+    const token = await get_stored_value('anilist_code');
+    let progress = await get_stored_value('anilist_progress_' + ids.idManga);
+    if (!progress)  {
+        const MediaList = await getMediaListById(token, ids.idList);
+        progress =  MediaList.MediaList.progress;
+        store_value('anilist_progress_' + ids.idManga, progress);
+    }
+    if (progress != parseInt(chapter)) {
+        const res = await graphqlRequest(token, `
+        mutation ($id: Int, $progress: Int) {
+            SaveMediaListEntry (id: $id, progress: $progress) {
+                id
+                progress
+            }
+        }`, {id: ids.idList, progress: chapter});
+        store_value('anilist_progress_' + ids.idManga, chapter);
+    } else {
+        console.log('no update');
+    }
+    console.log('anilist updated');
+
+}
+
+async function anilist_save(msg) {
+    console.log(msg);
+    data = msg.split('/');
+    data.shift();
+    anilist_id = await get_stored_value('anilist_id_' + data[0]);
+    anilist_data = await get_stored_value('anilist_data');
+    console.log(anilist_data);
+    if (!anilist_id) return;
+    anilist_data.forEach(element => {
+        if (element.idManga == anilist_id) {
+            anilist_update(element, data[1], data[2]);
+        }
     });
 }
 
-createAlarm();
-
-chrome.alarms.onAlarm.addListener((alarm) => {
-    if (alarm.name == "newsAlarm") {
-        check_news();
-    }
-});
-
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
-    doSomethingWith(msg).then(sendResponse);
+    if (msg.text.includes('update/')) {
+        anilist_save(msg.text);
+    } else {
+        doSomethingWith(msg).then(sendResponse);
+    }
     return true;
   });
   

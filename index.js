@@ -115,26 +115,35 @@ function saveReading(urlParams) {
     const type = urlParams[1].includes("volume-") ? "volume" : "chapter";
     const value = {chapter: parseInt(urlParams[1].replace('volume-', '')), page: urlParams[2] === "" ? 1 : parseInt(urlParams[2]), type: type};
     store_value(key, value);
+    chrome.runtime.sendMessage({text: "update/" + key + "/" + value.chapter + "/" + value.type});
     saveMangaName(key);
     createScrollingButton();
+}
+
+function checkifLoginWithAnilist() {
+    const url = window.location.toString();
+    const urlParams = url.replace(baseUrl, "").split("/");
+    if (urlParams[0]) {
+        code = urlParams[0].split('=')[1];
+        if (code) {
+            code = code.split('&')[0];
+            store_value("anilist_code", code);
+            window.alert("You are now logged in with Anilist");
+        }
+    }
 }
 
 function startSaving() {
     const url = window.location.toString();
     const urlParams = url.replace(baseUrl, "").split("/");
-    if (urlParams[0] !== "lecture-en-ligne" && urlParams[0] !== "manga") {
-        console.log("Was not in Reading")
-        return;
+    const params = urlParams.shift();
+    if (params === "manga") {
+        console.log(`In manga's menu of ${urlParams[0]}`)
+        resumeReading(urlParams[0], false);
+        createAnimeButton(urlParams[0]);
     } else {
-        const params = urlParams.shift();
-        if (params === "manga") {
-            console.log(`In manga's menu of ${urlParams[0]}`)
-            resumeReading(urlParams[0], false);
-            createAnimeButton(urlParams[0]);
-        } else {
-            console.log("In Reading")
-            saveReading(urlParams);
-        }
+        console.log("In Reading")
+        saveReading(urlParams);
     }
 }
 
@@ -228,6 +237,7 @@ async function darkTheme() {
 }
 
 darkTheme();
+checkifLoginWithAnilist();
 
 window.onunload = () => {
     startSaving();
