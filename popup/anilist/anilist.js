@@ -171,7 +171,8 @@ async function createMangaList(token, data) {
     }
     createArrayMangaList(mangalist)
     mangalist.MediaListCollection.lists.forEach(list => {
-        if (list.status === null) return;
+        console.log(list);
+        if (list.status === null ||  list.status === "COMPLETED") return;
         list.entries.forEach(manga => {
             if (checkifInList(idList, manga.media.id)) {
                 const mangaDiv = document.createElement('div');
