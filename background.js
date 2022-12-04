@@ -137,11 +137,13 @@ async function check_news() {
 async function anilist_update(ids, chapter, type) {
     console.log(ids, chapter, type);
     const token = await get_stored_value('anilist_code');
-    const MediaList = await getMediaListById(token, ids.idList);
-    if (!MediaList) return;
-    console.log(MediaList);
-    console.log(MediaList.MediaList.progress, parseInt(chapter));
-    if (MediaList.MediaList.progress != parseInt(chapter)) {
+    let progress = await get_stored_value('anilist_progress_' + ids.idManga);
+    if (!progress)  {
+        const MediaList = await getMediaListById(token, ids.idList);
+        progress =  MediaList.MediaList.progress;
+        store_value('anilist_progress_' + ids.idManga, progress);
+    }
+    if (progress != parseInt(chapter)) {
         const res = await graphqlRequest(token, `
         mutation ($id: Int, $progress: Int) {
             SaveMediaListEntry (id: $id, progress: $progress) {
@@ -149,6 +151,7 @@ async function anilist_update(ids, chapter, type) {
                 progress
             }
         }`, {id: ids.idList, progress: chapter});
+        store_value('anilist_progress_' + ids.idManga, chapter);
     } else {
         console.log('no update');
     }
