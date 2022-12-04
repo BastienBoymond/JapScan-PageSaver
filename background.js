@@ -137,6 +137,7 @@ async function check_news() {
 async function anilist_update(ids, chapter, type) {
     console.log(ids, chapter, type);
     const token = await get_stored_value('anilist_code');
+    if (!token) return; 
     let progress = await get_stored_value('anilist_progress_' + ids.idManga);
     if (!progress)  {
         const MediaList = await getMediaListById(token, ids.idList);
@@ -167,6 +168,7 @@ async function anilist_save(msg) {
     anilist_data = await get_stored_value('anilist_data');
     console.log(anilist_data);
     if (!anilist_id) return;
+    if (!anilist_data) return;
     anilist_data.forEach(element => {
         if (element.idManga == anilist_id) {
             anilist_update(element, data[1], data[2]);
