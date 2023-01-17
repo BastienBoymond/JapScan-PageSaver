@@ -9,8 +9,8 @@
         "alarms"
     ],
     "host_permissions": [
-        "http://54.36.183.102:3900/*",
-        "http://54.36.183.102:2900/*",
+        "http://141.94.68.137:3900/*",
+        "http://141.94.68.137:2900/*",
         "https://anilist.co/*"
     ],
     "content_scripts": [

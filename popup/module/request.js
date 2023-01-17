@@ -6,11 +6,7 @@ async function requestGet(url){
             credentials: 'include',
         });
         console.log(res);
-        if ((await res.text()) === 'true') {
-            return true
-        } else {
-            return false
-        }
+        return await res.json();
     } catch (e) {
         console.log(e);
         return false

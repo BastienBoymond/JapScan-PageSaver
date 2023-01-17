@@ -121,7 +121,7 @@ async function check_news() {
         const promise = mangaList.map(async (manga) => {
             const resume = await get_stored_value(manga);
             url_encoded = encodeURIComponent(`lecture-en-ligne/${manga}/${resume.chapter + 1}/${1}.html`);
-            next_page = await requestGet(`http://54.36.183.102:3900/proxy?url=${url_encoded}`);
+            next_page = await requestGet(`http://141.94.68.137:3900/proxy?url=${url_encoded}`);
             if (next_page) {
                 newsPage.push(manga);
                 

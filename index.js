@@ -41,7 +41,7 @@ function createResumeButton() {
 
 async function createAnimeButton(manga) {
     const url_encoded = encodeURIComponent(manga);
-    chrome.runtime.sendMessage({text: `http://54.36.183.102:2900/anime/search?term=${url_encoded}`}, function(response) {
+    chrome.runtime.sendMessage({text: `http://141.94.68.137:2900/anime/search?term=${url_encoded}`}, function(response) {
         if (!response.includes('Error')) {
             let data = JSON.parse(response);
             data.animes = data.animes.sort((a, b) => a.season - b.season);
