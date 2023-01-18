@@ -113,7 +113,7 @@ async function saveMangaName(mangaName) {
 function saveReading(urlParams) {
     const key = urlParams[0];
     const type = urlParams[1].includes("volume-") ? "volume" : "chapter";
-    const value = {chapter: parseInt(urlParams[1].replace('volume-', '')), page: urlParams[2] === "" ? 1 : parseInt(urlParams[2]), type: type};
+    const value = {chapter: parseFloat(urlParams[1].replace('volume-', '')), page: urlParams[2] === "" ? 1 : parseInt(urlParams[2]), type: type};
     store_value(key, value);
     chrome.runtime.sendMessage({text: "update/" + key + "/" + value.chapter + "/" + value.type});
     saveMangaName(key);
