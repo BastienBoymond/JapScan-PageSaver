@@ -1,5 +1,6 @@
 import {get_stored_value} from "../module/storage.js";
 import {loadtheme} from '../module/theming.js';
+import {requestPost} from "../module/request.js";
 
 async function createButtonResumes() {
     const mangaList = await get_stored_value('japscan_manga_name');
@@ -20,7 +21,16 @@ async function createButtonResumes() {
     }
 }
 
+async function sendMangaList() {
+    const mangaList = await get_stored_value('japscan_manga_name');
+    if (mangaList) {
+        const data = await requestPost('http://localhost:3900/list', mangaList);
+        console.log(data);
+    }
+} 
+
 createButtonResumes();
+sendMangaList();
 
 window.onclick = async function(event) {
     const target = event.target;
