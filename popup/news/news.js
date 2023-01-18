@@ -70,9 +70,10 @@ window.onclick = async function(event) {
             return;
         const manga = target.className.replace(' manga-button', '').replace(' manga-image', '').replace(' manga-title', '').replace(' manga-chapter', '').replace(' manga-page', '');
         const resume = await get_stored_value(manga);
+        const nb_chapter = document.getElementsByClassName(manga + ' manga-chapter')[0].innerText.replace('Ch', '').replace('Vol', '');
         if (!resume) return;
         const type = resume.type === 'volume' ? 'volume-' : '';
-        window.open(`https://japscan.com/lecture-en-ligne/${manga}/${type}${resume.chapter + 1}/${1}.html`);
+        window.open(`https://japscan.com/lecture-en-ligne/${manga}/${type}${nb_chapter}/${1}.html`);
     } else if (target.className === "goBack" || target.className === "fas fa-arrow-left") {
         window.location.href = '../home/popup.html'
     }
