@@ -27,6 +27,7 @@ async function createButtonNews() {
                             <div class="${manga.name} manga-chapter">${chOrVol + (manga.nb_chapter)}</div>
                             <div class="${manga.name} manga-page">p1</div>
                     </div>`;
+                    button.style.backgroundColor = '#ff0000';
                 } else if (manga.vo) {
                     button.innerHTML =  `<img crossorigin="anonymous" src="https://www.japscan.me/imgs/mangas/${manga.name}.jpg" class="${manga.name} manga-image">
                     <div class="${manga.name} manga-info">
@@ -35,6 +36,7 @@ async function createButtonNews() {
                             <div class="${manga.name} manga-chapter">${chOrVol + (manga.nb_chapter)}</div>
                             <div class="${manga.name} manga-page">p1</div>
                     </div>`;
+                    button.style.backgroundColor = '#ff0000';
                 } else {
                     button.innerHTML =  `<img crossorigin="anonymous" src="https://www.japscan.me/imgs/mangas/${manga.name}.jpg" class="${manga.name} manga-image">
                     <div class="${manga.name} manga-info">
@@ -43,44 +45,11 @@ async function createButtonNews() {
                             <div class="${manga.name} manga-page">p1</div>
                     </div>`;
                 }
+                if (!button.innerText.replaceAll('-', ' ').includes(document.getElementById("search-manga").value) || !button.innerText.includes(document.getElementById("search-manga").value))
+                button.style.display = 'none';
                 document.getElementsByClassName('news-content')[0].appendChild(button);
             }
         });
-        // news.foreach(manga => {
-            
-        // });
-
-            // const url_encoded = encodeURIComponent(`lecture-en-ligne/${manga}/${type}${resume.chapter + 1}/${1}.html`);
-            // const next_page = await requestGet(`http://141.94.68.137:3900/proxy?url=${url_encoded}`);
-            // console.log(next_page);
-            // if (next_page.exist) {
-            //     newsPage.push(manga);
-            //     const spoiler = await requestGet(`http://141.94.68.137:3900/spoiler/?url=${url_encoded}`);
-            //     console.log(next_page, spoiler, manga, url_encoded);
-            //     const button = document.createElement('div');
-            //     button.className = manga + ' manga-button';
-            //     const chOrVol = resume.type === 'volume' ? 'Vol' : 'Ch';
-            //     if (!spoiler.spoiler) {
-            //         button.innerHTML =  `<img crossorigin="anonymous" src="https://www.japscan.me/imgs/mangas/${manga}.jpg" class="${manga} manga-image">
-            //         <div class="${manga} manga-info">
-            //                 <div class="${manga} manga-title">${manga}</div>
-            //                 <div class="${manga} manga-chapter">${chOrVol + (resume.chapter + 1)}</div>
-            //                 <div class="${manga} manga-page">p1</div>
-            //         </div>`;
-            //     } else {
-            //         button.innerHTML =  `<img src="https://www.japscan.me/imgs/mangas/${manga}.jpg" class="${manga} manga-image">
-            //         <div class="${manga} manga-info">
-            //                 <div class="${manga} manga-spoiler">/!\\ Spoiler /!\\</div>
-            //                 <div class="${manga} manga-title">${manga}</div>
-            //                 <div class="${manga} manga-chapter">${chOrVol + (resume.chapter + 1)}</div>
-            //                 <div class="${manga} manga-page">p1</div>
-            //         </div>`;
-            //         button.style.backgroundColor = '#ff0000';
-            //     }
-            //     if (!button.innerText.replaceAll('-', ' ').includes(document.getElementById("search-manga").value) || !button.innerText.includes(document.getElementById("search-manga").value))
-            //         button.style.display = 'none';
-            //     document.getElementsByClassName('news-content')[0].appendChild(button);
-            // }
     }
     if (newsPage.length === 0) {
         const gif = document.createElement('img');
