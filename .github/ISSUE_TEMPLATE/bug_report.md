@@ -1,32 +1,37 @@
----
-name: Bug report
-about: Create a report of a bug in extension
-title: "[BUG]"
-labels: "\U0001F577️ bug"
-assignees: BastienBoymond
-
----
-
-**Describe the bug**
-A clear and concise description of what the bug is.
-
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
-
-**Expected behavior**
-A clear and concise description of what you expected to happen.
-
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
-
-**Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
-
-**Additional context**
-Add any other context about the problem here.
+name: Bug Report
+description: File a bug report
+title: "[BUG]: "
+labels: ["🕷️ bug", "verification"]
+assignees:
+  - fyroeo
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Also tell us, what did you expect to happen?
+      placeholder: Tell us what you see!
+    validations:
+      required: true
+  - type: dropdown
+    id: version
+    attributes:
+      label: Version
+      description: Are you using the last version ? Check in your navigator or in manifest.json (same as main branch)
+      options:
+        - "Yes"
+        - "No"
+    validations:
+      required: true
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant output
+      description: Please copy and paste any relevant output (F12 on page that you got a problem) or a screen of render. This will be automatically formatted into code, so no need for backticks.
+      render: shell
