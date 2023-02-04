@@ -27,8 +27,8 @@ To download this extension I invite you to go to this <a href="https://chrome.go
 
 * Popup View:
     <br>
-    <a href="https://i.imgur.com/Kiuib0c.png"><img src="https://i.imgur.com/Kiuib0c.png" title="Popup" width="400px"/></a>
+    <a href="https://i.imgur.com/Kiuib0c.png"><img src="https://i.imgur.com/B8gvAGw.png" title="Popup" width="400px"/></a>
 
-* Site View:
+* Site View (Dark Theme):
     <br>
-    <a href="https://i.imgur.com/oFIj4Yf.png"><img src="https://i.imgur.com/oFIj4Yf.png" title="Site avec modification" /></a>
+    <a href="https://i.imgur.com/oFIj4Yf.png"><img src="https://imgur.com/emLge8c.png" title="Site avec modification" /></a>
