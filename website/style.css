@@ -1,0 +1,6 @@
+body {
+    background: url(../assets/background-white.jpeg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

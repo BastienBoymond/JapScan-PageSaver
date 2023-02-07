@@ -1,5 +1,6 @@
-import {get_stored_value, store_value, delete_value} from '../module/storage.js';
-import {loadtheme} from '../module/theming.js';
+import {get_stored_value, store_value, delete_value} from '../../module/storage.js';
+import {loadtheme} from '../../module/theming.js';
+
 window.onclick = async function(event) {
     if (event.target.matches('.switch-theme')) {
         const theme = await get_stored_value('japscan_theme');

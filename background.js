@@ -189,3 +189,12 @@ async function doSomethingWith(msg) {
     let data = await requestGetData(`${msg.text}`);
     return data;
 }
+
+chrome.runtime.onInstalled.addListener(function(details){
+    let internalUrl = chrome.runtime.getURL("website/index.html");
+    if(details.reason == "install"){
+        chrome.tabs.create({ url: internalUrl });
+    }else if(details.reason == "update"){
+        //call a function to handle an update
+    }
+});

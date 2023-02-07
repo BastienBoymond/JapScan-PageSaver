@@ -1,6 +1,6 @@
-import {requestGet, requestPost} from '../module/request.js';
-import {get_stored_value} from '../module/storage.js';
-import {loadtheme} from '../module/theming.js';
+import {requestGet, requestPost} from '../../module/request.js';
+import {get_stored_value} from '../../module/storage.js';
+import {loadtheme} from '../../module/theming.js';
 
 async function createButtonNews() {
     const mangaList = await get_stored_value('japscan_manga_name');
@@ -55,7 +55,7 @@ async function createButtonNews() {
         const gif = document.createElement('img');
         gif.style.width = '50%';
         gif.style.height = '50%';
-        gif.src = '../assets/no_news.gif';
+        gif.src = '../../assets/no_news.gif';
         document.getElementsByClassName('news-content')[0].appendChild(gif);
     }
 }

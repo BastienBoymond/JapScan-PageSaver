@@ -26,13 +26,13 @@
         "service_worker": "background.js"
     },
     "action": {
-        "default_icon": "popup/assets/japscan.png",
+        "default_icon": "assets/japscan.png",
         "default_popup": "popup/home/popup.html",
         "default_title": "JapScan Saver"
     },
     "icons": { 
-        "16": "popup/assets/japscan.png",
-        "48": "popup/assets/japscan.png",
-        "128": "popup/assets/japscan.png"
+        "16": "assets/japscan.png",
+        "48": "assets/japscan.png",
+        "128": "assets/japscan.png"
       }
 }

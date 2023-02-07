@@ -1,6 +1,6 @@
-import {get_stored_value, store_value, delete_value} from '../module/storage.js';
-import { loadtheme } from '../module/theming.js';
-import { getUser, getMangaList, searchaManga, getMediaListById } from '../module/anilistRequest.js';
+import {get_stored_value, store_value, delete_value} from '../../module/storage.js';
+import { loadtheme } from '../../module/theming.js';
+import { getUser, getMangaList, searchaManga, getMediaListById } from '../../module/anilistRequest.js';
 
 
 loadtheme();
