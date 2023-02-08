@@ -26,6 +26,11 @@ window.onclick = async function(event) {
             }
         }
     }
+    
+    if (event.target.matches('.website')) {
+        let internalUrl = chrome.runtime.getURL("website/index.html");
+        chrome.tabs.create({url: internalUrl});
+    }
 }
 
 loadtheme();
