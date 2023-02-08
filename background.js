@@ -191,7 +191,7 @@ async function doSomethingWith(msg) {
 }
 
 chrome.runtime.onInstalled.addListener(function(details){
-    let internalUrl = chrome.runtime.getURL("website/index.html");
+    let internalUrl = chrome.runtime.getURL("website/welcome/welcome.html");
     if(details.reason == "install"){
         chrome.tabs.create({ url: internalUrl });
     }else if(details.reason == "update"){
