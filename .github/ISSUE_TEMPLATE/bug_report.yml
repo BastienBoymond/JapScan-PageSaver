@@ -1,9 +1,9 @@
 name: Bug Report
 description: File a bug report
 title: "[BUG]: "
-labels: ["🕷️ bug", "verification"]
+labels: ["🕷️ bug"]
 assignees:
-  - fyroeo
+  - bastrok
 body:
   - type: markdown
     attributes:

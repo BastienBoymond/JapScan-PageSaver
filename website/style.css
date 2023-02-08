@@ -4,3 +4,52 @@ body {
     flex-direction: column;
     align-items: center;
 }
+
+.container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-evenly;
+    align-items: center;;
+}
+
+div.login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+}
+
+div.register {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+}
+
+div.box {
+    background-color: #9E9E9E;
+    border-radius: 13px;
+}
+
+input {
+    margin: 10px;
+    border-radius: 13px;
+    border: none;
+    padding: 10px;
+    font-size: 15px;
+}
+
+button {
+    margin: 10px;
+    border-radius: 13px;
+    border: none;
+    padding: 10px;
+    font-size: 15px;
+    background-color: #726f6f;
+    color: white;
+}
+
+button:hover {
+    filter: brightness(0.85);
+}

@@ -6,13 +6,17 @@ async function loadtheme() {
         if (theme === 'dark') {
             document.body.style.backgroundImage = "url('../../assets/background-black.png')";
             document.getElementsByTagName('h1')[0].style.color = 'white';
-            document.getElementsByTagName('h3')[0].style.color = 'white';
-            document.getElementsByTagName("p")[0].style.color = 'white';
+            const h3 = document.getElementsByTagName("h3")
+            for (let i = 0; i < h3.length; i++) {
+                h3[i].style.color = 'white';
+            }
         } else {
             document.body.style.backgroundImage = "url('../../assets/background-white.jpeg')";
             document.getElementsByTagName('h1')[0].style.color = 'black';
-            document.getElementsByTagName('h3')[0].style.color = 'black';
-            document.getElementsByTagName("p")[0].style.color = 'black';
+            const h3 = document.getElementsByTagName("h3")
+            for (let i = 0; i < h3.length; i++) {
+                h3[i].style.color = 'white';
+            }
         }
     }
 }
