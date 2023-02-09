@@ -32,6 +32,13 @@ div.box {
     border-radius: 13px;
 }
 
+div.manga-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+}
+
 input {
     margin: 10px;
     border-radius: 13px;
