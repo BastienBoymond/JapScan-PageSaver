@@ -11,7 +11,8 @@
     "host_permissions": [
         "http://141.94.68.137:3900/*",
         "http://141.94.68.137:2900/*",
-        "https://anilist.co/*"
+        "https://anilist.co/*",
+        "http://localhost:3900/*"
     ],
     "content_scripts": [
         {
