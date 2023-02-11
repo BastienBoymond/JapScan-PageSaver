@@ -53,6 +53,7 @@ window.onclick = async function(event) {
         const token = await requestPost("http://localhost:3900/login", {username: document.getElementById("loginusername").value, password: document.getElementById("loginpassword").value});
         console.log(token);
         store_value("token_stats", token.token);
+        store_value("user_id", token.user_id)
         const internalUrl = chrome.runtime.getURL("website/stats/stats.html");
         window.location.href = internalUrl;
     } else if (target.id === 'register') {

@@ -23,10 +23,9 @@ async function createButtonResumes() {
 
 async function sendMangaList() {
     const mangaList = await get_stored_value('japscan_manga_name');
-    if (mangaList) {
-        const data = await requestPost('http://141.94.68.137:3900/list', mangaList);
-        console.log(data);
-    }
+    if (!mangaList) return;
+    const data = await requestPost('http://141.94.68.137:3900/list', mangaList);
+    console.log(data);
 } 
 
 createButtonResumes();
