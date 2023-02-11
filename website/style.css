@@ -60,3 +60,93 @@ button {
 button:hover {
     filter: brightness(0.85);
 }
+
+div.carrousel-container {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+}
+
+div.manga-list {
+    display: flex;
+    flex-direction: row;
+    margin-top: 50px;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    width: 100vw;
+    animation: slide 100s linear infinite;
+}
+
+div.manga-button {
+    width: 200px;
+    height: 170px;
+    margin: 15px;
+    background-color: #9E9E9E;
+    border-radius: 13px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+}
+
+img.manga-image {
+    margin: 2%;
+    border-radius: 13px;
+    width: 100px;
+    height: 160px;
+    display: flex;
+}
+
+div.manga-info {
+    width: 95px;
+    display: flex;
+    flex-direction: column;
+}
+
+div.manga-title {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+div.manga-button:hover {
+    filter: brightness(0.85);
+}
+
+@keyframes slide {
+    0% {
+        transform: translateX(0);
+    }
+    10% {
+        transform: translateX(-10%);
+    }
+    20% {
+        transform: translateX(-20%);
+    }
+    30% {
+        transform: translateX(-30%);
+    }
+    40% {
+        transform: translateX(-40%);
+    }
+    50% {
+        transform: translateX(-50%);
+    }
+    60% {
+        transform: translateX(-60%);
+    }
+    70% {
+        transform: translateX(-70%);
+    }
+    80% {
+        transform: translateX(-80%);
+    }
+    90% {
+        transform: translateX(-90%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+    
+}

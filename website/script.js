@@ -18,14 +18,35 @@ async function checkIfLoggedIn() {
     }
 }
 
+async function loadCarousel(mangalist) {
+    const carousel = document.getElementById("carousel");
+    for (let i = 0; i < mangalist.length; i++) {
+        const button = document.createElement('div');
+        button.className = mangalist[i].name + ' manga-button' + " carousel-item";
+        button.innerHTML =  `<img crossorigin="anonymous" src="https://www.japscan.me/imgs/mangas/${mangalist[i].name}.jpg" class="${mangalist[i].name} manga-image">
+                            <div class="${mangalist[i].name} manga-info">
+                                    <div class="${mangalist[i].name} manga-title">${mangalist[i].name}</div>
+                            </div>`;
+        carousel.appendChild(button);
+    }
+}
+
 loadtheme();
+
 if (await checkIfLoggedIn())  {
     const internalUrl = chrome.runtime.getURL("website/stats/stats.html");
     window.location.href = internalUrl;
 } else {
+    const mangalist = await requestGet("http://localhost:3900/mangalist");
+    mangalist.sort( () => .5 - Math.random());
+    loadCarousel(mangalist);
     // load List of manga in menu
 }
 
+// Event listener for login and register
+// When the user clicks on the button, send a request to the server
+// If the request is successful, store the token in the storage and redirect to the stats page
+// If the request is not successful, display the error message
 window.onclick = async function(event) {
     const target = event.target;
     if (target.id === 'login') {
@@ -35,6 +56,14 @@ window.onclick = async function(event) {
         const internalUrl = chrome.runtime.getURL("website/stats/stats.html");
         window.location.href = internalUrl;
     } else if (target.id === 'register') {
-
+        const response = await requestPost("http://localhost:3900/register", {username: document.getElementById("registerusername").value, password: document.getElementById("registerpassword").value});
+        if (response.error) {
+            document.getElementById("registererror").innerHTML = response.error;
+        } else {
+            document.getElementById("registererror").innerHTML = response.message;
+        }
     }
+    if (!target.className.includes('manga')) return;
+    const manga = target.className.replace(' manga-button', '').replace(' manga-image', '').replace(' manga-title', '').replace(' manga-chapter', '').replace(' manga-page', '');
+    window.open(`https://www.japscan.me/manga/${manga}/`);
 }
