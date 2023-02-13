@@ -31,6 +31,41 @@ async function requestGetData(url){
     }
 };
 
+async function requestPost(url, data, token=null) {
+    try {
+        console.log(token, data, url);
+        console.log(JSON.stringify(data));
+        if (!token) {
+            const res = await fetch(url, {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                },
+                body: JSON.stringify(data)
+            });
+            console.log("request without token");
+            return await res.json();
+        }
+        const res = await fetch(url, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify(data)
+        });
+        console.log("request with token");
+        return await res.json();
+    } catch (e) {
+        console.log(e);
+        return false
+    }
+}
+
 async function graphqlRequest(token, query, variables) {
     const url = 'https://graphql.anilist.co';
     const res = await fetch(url, {
@@ -134,8 +169,8 @@ async function check_news() {
     }
 }
 
-async function anilist_update(ids, chapter, type) {
-    console.log(ids, chapter, type);
+async function anilist_update(ids, chapter, type, page, mangaName) {
+    console.log(ids, chapter, type, page, mangaName);
     const token = await get_stored_value('anilist_code');
     if (!token) return; 
     let progress = await get_stored_value('anilist_progress_' + ids.idManga);
@@ -160,25 +195,46 @@ async function anilist_update(ids, chapter, type) {
 
 }
 
-async function anilist_save(msg) {
-    console.log(msg);
+function createData(msg) {
     data = msg.split('/');
     data.shift();
-    anilist_id = await get_stored_value('anilist_id_' + data[0]);
-    anilist_data = await get_stored_value('anilist_data');
+    return data
+}
+
+async function anilist_save(data) {
+    const anilist_id = await get_stored_value('anilist_id_' + data[0]);
+    const anilist_data = await get_stored_value('anilist_data');
     console.log(anilist_data);
     if (!anilist_id) return;
     if (!anilist_data) return;
     anilist_data.forEach(element => {
         if (element.idManga == anilist_id) {
-            anilist_update(element, data[1], data[2]);
+            anilist_update(element, data[1], data[2], data[3], data[0]);
         }
     });
 }
 
-chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+async function save_stats(data) {
+    const userId = await get_stored_value('user_id');
+    const tokenJapscan = await get_stored_value('token_stats');
+    const saved = await get_stored_value('saved_stats_' + data[0]);
+    if (!userId || !tokenJapscan) return;
+    if (saved) {
+        if (saved.chapter == data[1] && saved.type == data[2] && saved.page == data[3]) return;
+        store_value('saved_stats_' + data[0], {chapter: data[1], type: data[2], page: data[3]});
+        console.log(saved.page, data[3], saved.page === data[3], 'page');
+        const new_chapter_read = saved.chapter === data[1] ? 0 : 1;
+        const new_page_read = saved.page === data[3] ? 0 : 1;
+        await requestPost('http://localhost:3900/savestats', {userid: userId, manga: data[0], chapter_read: new_chapter_read, type: data[2], page_read: new_page_read, chapter: data[1], page: data[3]}, tokenJapscan);
+    }
+    store_value('saved_stats_' + data[0], {chapter: data[1], type: data[2], page: data[3]});
+}
+
+chrome.runtime.onMessage.addListener(async (msg, sender, sendResponse) => {
     if (msg.text.includes('update/')) {
-        anilist_save(msg.text);
+        data = createData(msg.text);
+        await anilist_save(data);
+        await save_stats(data);
     } else {
         doSomethingWith(msg).then(sendResponse);
     }

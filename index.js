@@ -115,7 +115,7 @@ function saveReading(urlParams) {
     const type = urlParams[1].includes("volume-") ? "volume" : "chapter";
     const value = {chapter: parseFloat(urlParams[1].replace('volume-', '')), page: urlParams[2] === "" ? 1 : parseInt(urlParams[2]), type: type};
     store_value(key, value);
-    chrome.runtime.sendMessage({text: "update/" + key + "/" + value.chapter + "/" + value.type});
+    chrome.runtime.sendMessage({text: "update/" + key + "/" + value.chapter + "/" + value.type + "/" + value.page});
     saveMangaName(key);
     createScrollingButton();
 }
@@ -197,7 +197,7 @@ setInterval( () => {
     if (params == "lecture-en-ligne") {
         saveReading(urlParams);
     }
-}, 1500);
+}, 2000);
 
 async function darkTheme() {
     theme = await get_stored_value("japscan_theme");

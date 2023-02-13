@@ -27,7 +27,7 @@ async function requestGet(url, token=null){
 
 async function requestPost(url, data, token=null) {
     try {
-        if (token) {
+        if (!token) {
             const res = await fetch(url, {
                 method: 'POST',
                 credentials: 'include',
@@ -37,6 +37,7 @@ async function requestPost(url, data, token=null) {
                 },
                 body: JSON.stringify(data)
             });  
+            return await res.json();
         }
         const res = await fetch(url, {
             method: 'POST',
