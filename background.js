@@ -224,7 +224,12 @@ async function save_stats(data) {
         store_value('saved_stats_' + data[0], {chapter: data[1], type: data[2], page: data[3]});
         console.log(saved.page, data[3], saved.page === data[3], 'page');
         const new_chapter_read = saved.chapter === data[1] ? 0 : 1;
-        const new_page_read = saved.page === data[3] ? 0 : 1;
+        let new_page_read = 0;
+        if (new_chapter_read == 1) {
+            new_page_read = 1;
+        } else if (saved.page !== data[3]) {
+            new_page_read = 1;
+        }
         await requestPost('http://localhost:3900/savestats', {userid: userId, manga: data[0], chapter_read: new_chapter_read, type: data[2], page_read: new_page_read, chapter: data[1], page: data[3]}, tokenJapscan);
     }
     store_value('saved_stats_' + data[0], {chapter: data[1], type: data[2], page: data[3]});

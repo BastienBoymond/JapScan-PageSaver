@@ -52,10 +52,15 @@ window.onclick = async function(event) {
     if (target.id === 'login') {
         const token = await requestPost("http://localhost:3900/login", {username: document.getElementById("loginusername").value, password: document.getElementById("loginpassword").value});
         console.log(token);
+        if (token.error) {
+            document.getElementById("registererror").innerHTML = token.error;
+            return;
+        }
         store_value("token_stats", token.token);
         store_value("user_id", token.user_id)
         const internalUrl = chrome.runtime.getURL("website/stats/stats.html");
         window.location.href = internalUrl;
+        return;
     } else if (target.id === 'register') {
         const response = await requestPost("http://localhost:3900/register", {username: document.getElementById("registerusername").value, password: document.getElementById("registerpassword").value});
         if (response.error) {
@@ -63,6 +68,7 @@ window.onclick = async function(event) {
         } else {
             document.getElementById("registererror").innerHTML = response.message;
         }
+        return
     }
     if (!target.className.includes('manga')) return;
     const manga = target.className.replace(' manga-button', '').replace(' manga-image', '').replace(' manga-title', '').replace(' manga-chapter', '').replace(' manga-page', '');
