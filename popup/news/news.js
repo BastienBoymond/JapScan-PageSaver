@@ -20,7 +20,7 @@ async function createButtonNews() {
                 button.className = manga.name + ' manga-button';
                 const chOrVol = manga.type === 'volume' ? 'Vol' : 'Ch';
                 if (manga.spoiler) {
-                    button.innerHTML =  `<img crossorigin="anonymous" src="https://www.japscan.me/imgs/mangas/${manga.name}.jpg" class="${manga.name} manga-image">
+                    button.innerHTML =  `<img crossorigin="anonymous" src="https://www.japscan.lol/imgs/mangas/${manga.name}.jpg" class="${manga.name} manga-image">
                     <div class="${manga.name} manga-info">
                             <div class="${manga.name} manga-spoiler">/!\\ Spoiler /!\\</div>
                             <div class="${manga.name} manga-title">${manga.name}</div>
@@ -29,7 +29,7 @@ async function createButtonNews() {
                     </div>`;
                     button.style.backgroundColor = '#ff0000';
                 } else if (manga.vo) {
-                    button.innerHTML =  `<img crossorigin="anonymous" src="https://www.japscan.me/imgs/mangas/${manga.name}.jpg" class="${manga.name} manga-image">
+                    button.innerHTML =  `<img crossorigin="anonymous" src="https://www.japscan.lol/imgs/mangas/${manga.name}.jpg" class="${manga.name} manga-image">
                     <div class="${manga.name} manga-info">
                             <div class="${manga.name} manga-vo">VO</div>
                             <div class="${manga.name} manga-title">${manga.name}</div>
@@ -38,7 +38,7 @@ async function createButtonNews() {
                     </div>`;
                     button.style.backgroundColor = '#ff0000';
                 } else {
-                    button.innerHTML =  `<img crossorigin="anonymous" src="https://www.japscan.me/imgs/mangas/${manga.name}.jpg" class="${manga.name} manga-image">
+                    button.innerHTML =  `<img crossorigin="anonymous" src="https://www.japscan.lol/imgs/mangas/${manga.name}.jpg" class="${manga.name} manga-image">
                     <div class="${manga.name} manga-info">
                             <div class="${manga.name} manga-title">${manga.name}</div>
                             <div class="${manga.name} manga-chapter">${chOrVol + (manga.nb_chapter)}</div>

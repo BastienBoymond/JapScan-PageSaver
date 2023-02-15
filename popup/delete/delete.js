@@ -8,7 +8,7 @@ async function createButtonDeletes() {
             const button = document.createElement('div');
             button.className = manga;
             button.className = manga + ' manga-button';
-            button.innerHTML =  `<img crossorigin="anonymous" src="https://www.japscan.me/imgs/mangas/${manga}.jpg" class="${manga} manga-image">
+            button.innerHTML =  `<img crossorigin="anonymous" src="https://www.japscan.lol/imgs/mangas/${manga}.jpg" class="${manga} manga-image">
             <div class="${manga} manga-info">
                     <div class="${manga} manga-title">${manga}</div>
             </div>`;

@@ -1,4 +1,4 @@
-const baseUrl = "https://www.japscan.me/"
+const baseUrl = "https://www.japscan.lol/"
 let scrolling = false;
 let scrollingWrite = false;
 
@@ -207,7 +207,7 @@ async function darkTheme() {
         if (document.getElementsByTagName('h1')[0]) {
             document.getElementsByTagName('h1')[0].style.color = "white";
         }
-        if (window.location.toString() == "https://www.japscan.me/") {
+        if (window.location.toString() == "https://www.japscan.lol/") {
             document.querySelectorAll('p.text-center').forEach(p => {              
                 p.querySelector('.text-dark').className = "text-white";
             });

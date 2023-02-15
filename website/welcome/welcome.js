@@ -6,7 +6,7 @@ window.onclick = async function(event) {
         let internalUrl = chrome.runtime.getURL("website/index.html");
         window.location.href = internalUrl;
     } else if (target.id === "start-read"){
-        window.location.href = "https://www.japscan.me/";
+        window.location.href = "https://www.japscan.lol/";
     }
 }
 

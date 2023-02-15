@@ -23,7 +23,7 @@ async function loadCarousel(mangalist) {
     for (let i = 0; i < mangalist.length; i++) {
         const button = document.createElement('div');
         button.className = mangalist[i].name + ' manga-button' + " carousel-item";
-        button.innerHTML =  `<img crossorigin="anonymous" src="https://www.japscan.me/imgs/mangas/${mangalist[i].name}.jpg" class="${mangalist[i].name} manga-image">
+        button.innerHTML =  `<img crossorigin="anonymous" src="https://www.japscan.lol/imgs/mangas/${mangalist[i].name}.jpg" class="${mangalist[i].name} manga-image">
                             <div class="${mangalist[i].name} manga-info">
                                     <div class="${mangalist[i].name} manga-title">${mangalist[i].name}</div>
                             </div>`;
@@ -72,5 +72,5 @@ window.onclick = async function(event) {
     }
     if (!target.className.includes('manga')) return;
     const manga = target.className.replace(' manga-button', '').replace(' manga-image', '').replace(' manga-title', '').replace(' manga-chapter', '').replace(' manga-page', '');
-    window.open(`https://www.japscan.me/manga/${manga}/`);
+    window.open(`https://www.japscan.lol/manga/${manga}/`);
 }
