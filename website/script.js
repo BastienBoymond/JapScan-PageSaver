@@ -10,7 +10,7 @@ async function checkIfLoggedIn() {
     const token = await get_stored_value("token_stats");
     if (!token) return false;
     console.log(token);
-    const user_id = await requestGet("http://localhost:3900/ping", token);
+    const user_id = await requestGet("http://141.94.68.137:3900/ping", token);
     if (user_id.user_id) {
         return true;
     } else {
@@ -37,7 +37,7 @@ if (await checkIfLoggedIn())  {
     const internalUrl = chrome.runtime.getURL("website/stats/stats.html");
     window.location.href = internalUrl;
 } else {
-    const mangalist = await requestGet("http://localhost:3900/mangalist");
+    const mangalist = await requestGet("http://141.94.68.137:3900/mangalist");
     mangalist.sort( () => .5 - Math.random());
     loadCarousel(mangalist);
     // load List of manga in menu
@@ -50,7 +50,7 @@ if (await checkIfLoggedIn())  {
 window.onclick = async function(event) {
     const target = event.target;
     if (target.id === 'login') {
-        const token = await requestPost("http://localhost:3900/login", {username: document.getElementById("loginusername").value, password: document.getElementById("loginpassword").value});
+        const token = await requestPost("http://141.94.68.137:3900/login", {username: document.getElementById("loginusername").value, password: document.getElementById("loginpassword").value});
         console.log(token);
         if (token.error) {
             document.getElementById("registererror").innerHTML = token.error;
@@ -62,7 +62,7 @@ window.onclick = async function(event) {
         window.location.href = internalUrl;
         return;
     } else if (target.id === 'register') {
-        const response = await requestPost("http://localhost:3900/register", {username: document.getElementById("registerusername").value, password: document.getElementById("registerpassword").value});
+        const response = await requestPost("http://141.94.68.137:3900/register", {username: document.getElementById("registerusername").value, password: document.getElementById("registerpassword").value});
         if (response.error) {
             document.getElementById("registererror").innerHTML = response.error;
         } else {

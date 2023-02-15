@@ -26,7 +26,7 @@ async function sendMangaList() {
     const tokenJapscan = await get_stored_value('token_stats');
     const userId = await get_stored_value('user_id');
     if (!mangaList) return;
-    const data = await requestPost('http://localhost:3900/list', mangaList, tokenJapscan);
+    const data = await requestPost('http://141.94.68.137:3900/list', mangaList, tokenJapscan);
     console.log(data);
 } 
 

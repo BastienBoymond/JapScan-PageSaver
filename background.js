@@ -230,7 +230,7 @@ async function save_stats(data) {
         } else if (saved.page !== data[3]) {
             new_page_read = 1;
         }
-        await requestPost('http://localhost:3900/savestats', {userid: userId, manga: data[0], chapter_read: new_chapter_read, type: data[2], page_read: new_page_read, chapter: data[1], page: data[3]}, tokenJapscan);
+        await requestPost('http://141.94.68.137:3900/savestats', {userid: userId, manga: data[0], chapter_read: new_chapter_read, type: data[2], page_read: new_page_read, chapter: data[1], page: data[3]}, tokenJapscan);
     }
     store_value('saved_stats_' + data[0], {chapter: data[1], type: data[2], page: data[3]});
 }
