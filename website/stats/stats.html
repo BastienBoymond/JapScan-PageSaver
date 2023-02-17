@@ -4,13 +4,25 @@
         <meta charset="utf-8">
         <title>Japscan-Stats</title>
         <link rel="stylesheet" href="stats.css">
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="../../js/chart.js"></script>
         <script type="module" src="stats.js"></script>
     </head>
     <body>
         <h1>
-            <a href="https://japscan.to/">Japscan</a>
+            <a href="https://japscan.lol/"><span>Japscan</span></a>
             <span>Stats</span>
         </h1>
+        <div id="stats" class="container">
+            <div id="genres-read" class="things-container graph-container">
+                <h2>Genres read</h2>
+                <canvas id="genres-read-chart"></canvas>
+            </div>
+            <div id="history" class="things-container history-container">
+                <h2>History</h2>
+                <div id="history-content" class="things-container history-content">
+
+                </div>
+            </div>
+        </div>
     </body>
 </html>

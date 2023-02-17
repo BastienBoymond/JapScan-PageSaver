@@ -43,6 +43,29 @@ if (await checkIfLoggedIn())  {
     // load List of manga in menu
 }
 
+
+async function login() {
+    const token = await requestPost("http://141.94.68.137:3900/login", {username: document.getElementById("loginusername").value, password: document.getElementById("loginpassword").value});
+        console.log(token);
+        if (token.error) {
+            document.getElementById("registererror").innerHTML = "Login:" + token.error;
+            return;
+        }
+        store_value("token_stats", token.token);
+        store_value("user_id", token.user_id)
+        const internalUrl = chrome.runtime.getURL("website/stats/stats.html");
+        window.location.href = internalUrl;
+}
+
+async function register() {
+    const response = await requestPost("http://141.94.68.137:3900/register", {username: document.getElementById("registerusername").value, password: document.getElementById("registerpassword").value});
+    if (response.error) {
+        document.getElementById("registererror").innerHTML = "Register:" + response.error;
+    } else {
+        document.getElementById("registererror").innerHTML = "Register:" + response.message;
+    }
+}
+
 // Event listener for login and register
 // When the user clicks on the button, send a request to the server
 // If the request is successful, store the token in the storage and redirect to the stats page
@@ -50,27 +73,25 @@ if (await checkIfLoggedIn())  {
 window.onclick = async function(event) {
     const target = event.target;
     if (target.id === 'login') {
-        const token = await requestPost("http://141.94.68.137:3900/login", {username: document.getElementById("loginusername").value, password: document.getElementById("loginpassword").value});
-        console.log(token);
-        if (token.error) {
-            document.getElementById("registererror").innerHTML = token.error;
-            return;
-        }
-        store_value("token_stats", token.token);
-        store_value("user_id", token.user_id)
-        const internalUrl = chrome.runtime.getURL("website/stats/stats.html");
-        window.location.href = internalUrl;
+        await login();
         return;
     } else if (target.id === 'register') {
-        const response = await requestPost("http://141.94.68.137:3900/register", {username: document.getElementById("registerusername").value, password: document.getElementById("registerpassword").value});
-        if (response.error) {
-            document.getElementById("registererror").innerHTML = response.error;
-        } else {
-            document.getElementById("registererror").innerHTML = response.message;
-        }
-        return
+        await register();
+        return;
     }
     if (!target.className.includes('manga')) return;
     const manga = target.className.replace(' manga-button', '').replace(' manga-image', '').replace(' manga-title', '').replace(' manga-chapter', '').replace(' manga-page', '');
     window.open(`https://www.japscan.lol/manga/${manga}/`);
+}
+
+window.onkeyup = async function(event) {
+    if (event.key === "Enter") {
+        if (target.id === 'loginusername' || target.id === 'loginpassword') {
+            await login();
+            return;
+        } else if (target.id === 'registerusername' || target.id === 'registerpassword' || target.id === 'confirmpassword') {
+            await register();
+            return;
+        }
+    }
 }

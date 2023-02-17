@@ -10,12 +10,16 @@ async function loadtheme() {
             for (let i = 0; i < h3.length; i++) {
                 h3[i].style.color = 'white';
             }
+            const a = document.getElementsByTagName("a")
+            for (let i = 0; i < a.length; i++) {
+                a[i].style.color = 'white';
+            }
         } else {
             document.body.style.backgroundImage = "url('../../assets/background-white.jpeg')";
             document.getElementsByTagName('h1')[0].style.color = 'black';
             const h3 = document.getElementsByTagName("h3")
             for (let i = 0; i < h3.length; i++) {
-                h3[i].style.color = 'white';
+                h3[i].style.color = 'black';
             }
         }
     }

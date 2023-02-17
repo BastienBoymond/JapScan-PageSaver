@@ -3,6 +3,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow: hidden;
 }
 
 .container {
@@ -66,6 +67,8 @@ div.carrousel-container {
     flex-direction: column;
     align-content: center;
     align-items: center;
+    overflow: hidden;
+    overflow-x: hidden;
 }
 
 div.manga-list {
@@ -74,8 +77,8 @@ div.manga-list {
     margin-top: 50px;
     flex-wrap: nowrap;
     justify-content: flex-start;
-    width: 100vw;
-    animation: slide 100s linear infinite;
+    width: 90%;
+    animation: slide 5000s linear infinite;
 }
 
 div.manga-button {
@@ -117,33 +120,6 @@ div.manga-button:hover {
 @keyframes slide {
     0% {
         transform: translateX(0);
-    }
-    10% {
-        transform: translateX(-10%);
-    }
-    20% {
-        transform: translateX(-20%);
-    }
-    30% {
-        transform: translateX(-30%);
-    }
-    40% {
-        transform: translateX(-40%);
-    }
-    50% {
-        transform: translateX(-50%);
-    }
-    60% {
-        transform: translateX(-60%);
-    }
-    70% {
-        transform: translateX(-70%);
-    }
-    80% {
-        transform: translateX(-80%);
-    }
-    90% {
-        transform: translateX(-90%);
     }
     100% {
         transform: translateX(-100%);
