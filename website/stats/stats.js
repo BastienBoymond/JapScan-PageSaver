@@ -69,9 +69,28 @@ async function createHistory(history) {
     historyList.forEach((item) => container.appendChild(item));
 }
 
+function findFavoriteGenre(genres) {
+    let favoriteGenre = genres[0];
+    genres.forEach((genre) => {
+        if (genre.nb > favoriteGenre.nb) {
+            favoriteGenre = genre;
+        }
+    });
+    return favoriteGenre.genre;
+}
+
+async function attributeNumber(res) {
+    document.getElementById('manga-read').innerHTML = res.mangalist.length;
+    document.getElementById('chapter-read').innerHTML = res.chapter_read;
+    document.getElementById('page-read').innerHTML = res.page_read;
+    document.getElementById('favorite-genre').innerHTML = findFavoriteGenre(res.genres_read);
+    document.getElementById('anilist-connected').innerHTML = (await get_stored_value('anilist_code')) ? 'Yes' : 'No';
+}
+
 async function createStat() {
     const res = await getData();
     console.log(res);
+    attributeNumber(res);
     createGenreGraph(res.genres_read);
     createHistory(res.history);
 }

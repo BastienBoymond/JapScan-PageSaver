@@ -86,6 +86,7 @@ window.onclick = async function(event) {
 
 window.onkeyup = async function(event) {
     if (event.key === "Enter") {
+        const target = event.target;
         if (target.id === 'loginusername' || target.id === 'loginpassword') {
             await login();
             return;
