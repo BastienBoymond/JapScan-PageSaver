@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "JapScan_PageSaver",
     "description": "Extension for Save Chapter and Page of Current Manga you read",
-    "version": "3.414",
+    "version": "3.500",
     "permissions": [
         "storage",
         "notifications",
@@ -11,13 +11,14 @@
     "host_permissions": [
         "http://141.94.68.137:3900/*",
         "http://141.94.68.137:2900/*",
-        "https://anilist.co/*"
+        "https://anilist.co/*",
+        "http://141.94.68.137:3900/*"
     ],
     "content_scripts": [
         {
             "matches": [
-                "https://www.japscan.me/",
-                "https://www.japscan.me/*"
+                "https://www.japscan.lol/",
+                "https://www.japscan.lol/*"
             ],
             "js": ["index.js"]
         }
@@ -26,13 +27,13 @@
         "service_worker": "background.js"
     },
     "action": {
-        "default_icon": "popup/assets/japscan.png",
+        "default_icon": "assets/japscan.png",
         "default_popup": "popup/home/popup.html",
         "default_title": "JapScan Saver"
     },
     "icons": { 
-        "16": "popup/assets/japscan.png",
-        "48": "popup/assets/japscan.png",
-        "128": "popup/assets/japscan.png"
+        "16": "assets/japscan.png",
+        "48": "assets/japscan.png",
+        "128": "assets/japscan.png"
       }
 }

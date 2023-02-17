@@ -1,4 +1,4 @@
-const baseUrl = "https://www.japscan.me/"
+const baseUrl = "https://www.japscan.lol/"
 let scrolling = false;
 let scrollingWrite = false;
 
@@ -115,7 +115,7 @@ function saveReading(urlParams) {
     const type = urlParams[1].includes("volume-") ? "volume" : "chapter";
     const value = {chapter: parseFloat(urlParams[1].replace('volume-', '')), page: urlParams[2] === "" ? 1 : parseInt(urlParams[2]), type: type};
     store_value(key, value);
-    chrome.runtime.sendMessage({text: "update/" + key + "/" + value.chapter + "/" + value.type});
+    chrome.runtime.sendMessage({text: "update/" + key + "/" + value.chapter + "/" + value.type + "/" + value.page});
     saveMangaName(key);
     createScrollingButton();
 }
@@ -197,7 +197,7 @@ setInterval( () => {
     if (params == "lecture-en-ligne") {
         saveReading(urlParams);
     }
-}, 1500);
+}, 2000);
 
 async function darkTheme() {
     theme = await get_stored_value("japscan_theme");
@@ -207,7 +207,7 @@ async function darkTheme() {
         if (document.getElementsByTagName('h1')[0]) {
             document.getElementsByTagName('h1')[0].style.color = "white";
         }
-        if (window.location.toString() == "https://www.japscan.me/") {
+        if (window.location.toString() == "https://www.japscan.lol/") {
             document.querySelectorAll('p.text-center').forEach(p => {              
                 p.querySelector('.text-dark').className = "text-white";
             });

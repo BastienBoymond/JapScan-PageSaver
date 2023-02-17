@@ -1,0 +1,28 @@
+body {
+    background: url(../../assets/background-white.jpeg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    width: 70%;
+    justify-content: space-evenly;
+    align-items: center;;
+}
+
+button {
+    margin: 10px;
+    border-radius: 13px;
+    border: none;
+    padding: 10px;
+    font-size: 15px;
+    background-color: #726f6f;
+    color: white;
+}
+
+button:hover {
+    filter: brightness(0.85);
+}

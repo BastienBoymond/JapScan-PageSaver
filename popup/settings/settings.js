@@ -1,5 +1,6 @@
-import {get_stored_value, store_value, delete_value} from '../module/storage.js';
-import {loadtheme} from '../module/theming.js';
+import {get_stored_value, store_value, delete_value} from '../../module/storage.js';
+import {loadtheme} from '../../module/theming.js';
+
 window.onclick = async function(event) {
     if (event.target.matches('.switch-theme')) {
         const theme = await get_stored_value('japscan_theme');
@@ -24,6 +25,11 @@ window.onclick = async function(event) {
                 store_value('japscan_auto_anilist', true);
             }
         }
+    }
+    
+    if (event.target.matches('.website')) {
+        let internalUrl = chrome.runtime.getURL("website/index.html");
+        chrome.tabs.create({url: internalUrl});
     }
 }
 

@@ -1,0 +1,132 @@
+body {
+    background: url(../../assets/background-white.jpeg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: scroll;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+span {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    color: #532370;
+    font-size: 1.4rem;
+    font-weight: 700;
+    padding-bottom: 8px;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.things-container {
+    width: 49%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #9E9E9E;
+    border-radius: 10px;
+}
+
+.graph-container {
+    height: 970px;
+    
+}
+
+.history-container {
+    height: 970px;
+    justify-content: flex-start;
+    overflow-y: scroll;
+}
+
+.history-content {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.history-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 45%;
+    height: 200px;
+    background-color: #555;
+    border-radius: 10px;
+    margin: 1%;
+}
+
+.history-item-image {
+    margin: 2%;
+    border-radius: 13px;
+    width: 100px;
+    height: 160px;
+}
+
+.history-item-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+    width: 60%;
+    height: 100%;
+    margin: 2%;
+}
+
+.bar-number {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin: 2%;
+    background-color: #888;
+    border-radius: 10px;
+}
+
+.bar-field {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin: 2%;
+    background-color: #555;
+    border-radius: 10px;
+}
+
+/* width */
+::-webkit-scrollbar {
+width: 12px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+background: #555;
+}

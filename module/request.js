@@ -1,6 +1,18 @@
-async function requestGet(url){
+async function requestGet(url, token=null){
     let data;
     try {
+        if (token) {
+            const res = await fetch(url, {
+                method: 'GET',
+                credentials: 'include',
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                },
+            });
+            return await res.json();
+        }
         const res = await fetch(url, {
             method: 'GET',
             credentials: 'include',
@@ -13,12 +25,25 @@ async function requestGet(url){
     }
 };
 
-async function requestPost(url, data) {
+async function requestPost(url, data, token=null) {
     try {
+        if (!token) {
+            const res = await fetch(url, {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                },
+                body: JSON.stringify(data)
+            });  
+            return await res.json();
+        }
         const res = await fetch(url, {
             method: 'POST',
             credentials: 'include',
             headers: {
+                'Authorization': 'Bearer ' + token,
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
             },

@@ -1,4 +1,4 @@
-import {loadtheme} from '../module/theming.js';
+import {loadtheme} from '../../module/theming.js';
 
 window.onclick = function(event) {
     if (event.target.matches('.github')) {
