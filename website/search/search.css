@@ -10,3 +10,92 @@ a {
     text-decoration: none;
     color: #000;
 }
+
+input.searchbar-input {
+    width: 95%;
+    height: 50px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    font-size: 20px;
+    margin: 20px 0px;
+    border-radius: 12px;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 95%;
+    margin: auto auto;
+}
+
+.manga-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px auto;
+    width: 250px;
+    height: 360px;
+    padding: 10px 20px;
+    background-color: #888;
+    border-radius: 12px;
+}
+
+.manga-image {
+    margin: 2%;
+    border-radius: 13px;
+    width: 200px;
+    height: 320px;
+    display: flex;
+}
+
+.manga-title {
+    text-align: center;
+    width: 250px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.manga-container:hover {
+    background-color: #aaa;
+    cursor: pointer;
+}
+
+.manga-container:hover .manga-image {
+    background-color: #aaa;
+    cursor: pointer;
+}
+
+.manga-container:hover .manga-title {
+    background-color: #aaa;
+    cursor: pointer;
+}
+
+.search-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.searchbar-select {
+    width: 30%;
+    height: 50px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    font-size: 20px;
+    margin: 20px 0px;
+    border-radius: 12px;
+}
+
+.params {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 95%;
+    margin: auto auto;
+}

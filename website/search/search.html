@@ -14,6 +14,21 @@
             Search
         </h1>
         <div style="width: 100%;" include-html="../../module/navbar-website/navbar.html"></div>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Search by name..." class="searchbar-input">
+            <select id="search-select" class="searchbar-select">
+                <option value="name">Name</option>
+                <option value="author">Author</option>
+                <option value="artist">Artist</option>
+            </select>
+        </div>
+        <div class="params">
+            <select>Nb-chapter</select>
+            <select>Release-date</select>
+            <select>Genre</select>
+        </div>
+        <div id="search-result" class="container">
+        </div>
     </body>
     <footer>
         <script src="../../module/includeHTML.js"></script>
