@@ -6,12 +6,14 @@
         <link rel="stylesheet" href="stats.css">
         <script src="../../js/chart.js"></script>
         <script type="module" src="stats.js"></script>
+        <link rel="stylesheet" type="text/css" href="../../module/navbar-website/navbar.css">
     </head>
     <body>
         <h1>
             <a href="https://japscan.lol/">Japscan</a>
             Stats
         </h1>
+        <div style="width: 100%; display: flex; justify-content: center;" include-html="../../module/navbar-website/navbar.html"></div>
         <div id="nb-stats" class="bar-number">
             <div class="bar-field">
                 <span id="manga-read"></span>
@@ -47,4 +49,8 @@
             </div>
         </div>
     </body>
+    <footer>
+        <script src="../../module/includeHTML.js"></script>
+        <script src="../../module/navbar-website/navbar.js" defer></script>
+    </footer>
 </html>

@@ -25,6 +25,9 @@ async function getData() {
 }
 
 async function createGenreGraph(genres) {
+    if (genres.length === 0) return;
+    let moyenne = genres.reduce((acc, genre) => acc + genre.nb, 0) / genres.length;
+    genres = genres.filter((genre) => genre.nb >=  Math.floor(moyenne));
     const canvas = document.getElementById('genres-read-chart');
     const labels = genres.map((genre) => genre.genre);
     const nb = genres.map((genre) => genre.nb);

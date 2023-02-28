@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Japscan-Search</title>
+        <link rel="stylesheet" href="search.css">
+        <script src="../../js/chart.js"></script>
+        <script type="module" src="search.js"></script>
+        <link rel="stylesheet" type="text/css" href="../../module/navbar-website/navbar.css">
+    </head>
+    <body>
+        <h1>
+            <a href="https://japscan.lol/">Japscan</a>
+            Search
+        </h1>
+        <div style="width: 100%;" include-html="../../module/navbar-website/navbar.html"></div>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Search by name..." class="searchbar-input">
+            <select id="search-select" class="searchbar-select">
+                <option value="name">Name</option>
+                <option value="author">Author</option>
+                <option value="artist">Artist</option>
+            </select>
+        </div>
+        <div class="params">
+            <select id="release_date" value="Release-date">
+                <option value="all">All</option>
+            </select>
+            <select id="genre" value="Genre">
+                <option value="all">All</option>
+            </select>
+        </div>
+        <div id="search-result" class="container">
+            <div class="lds-default"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+        </div>
+    </body>
+    <footer>
+        <script src="../../module/includeHTML.js"></script>
+        <script src="../../module/navbar-website/navbar.js" defer></script>
+    </footer>
+</html>
