@@ -60,7 +60,12 @@ async function createButtonNews() {
     }
 }
 
-createButtonNews();
+async function main () {
+    await createButtonNews();
+    document.getElementsByClassName('lds-default')[0].style.display = 'none';
+}
+
+main();
 
 window.onclick = async function(event) {
     const target = event.target;
