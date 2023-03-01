@@ -1,3 +1,13 @@
+/*
+** Description: This module is responsible for the searchbar
+** Author: Bastien Boymond
+*/
+
+/*
+** Description: Callback function triggered when the user types in the searchbar
+** Parameters: [event] {Event}: the event triggered by the user
+** Return: None
+*/
 window.addEventListener('input', async (event) => {
     const searchContent = event.target.value;
     console.log(searchContent);

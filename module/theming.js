@@ -1,5 +1,15 @@
+/* 
+** Description: This module contains functions to load the color theme of the extension
+** Author: Bastien Boymond
+*/
+
 import {get_stored_value} from '../module/storage.js';
 
+/* 
+** Description: Load the dark or light theme of the extension depending on the stored value
+** Parameters: None
+** Return: None
+*/ 
 async function loadtheme() {
     const theme = await get_stored_value('japscan_theme');
     if (theme) {

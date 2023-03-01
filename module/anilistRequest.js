@@ -1,5 +1,15 @@
+/*
+** Description: This module is used to make requests to the Anilist API
+** Author: Bastien Boymond
+*/
+
 import { graphqlRequest } from "./request.js";
 
+/* 
+** Description: Get the user anilist data
+** Parameters: [token] {string}: the token to use for the request
+** Return: {Promise}: a promise that will be resolved with the value
+*/
 async function getUser(token) {
     return await graphqlRequest(token, `
     {
@@ -35,6 +45,12 @@ async function getUser(token) {
     `, {});
 }
 
+/*
+** Description: Get the Manga list of the user
+** Parameters: [token] {string}: the token to use for the request
+**             [id] {number}: the id of the user
+** Return: {Promise}: a promise that will be resolved with the value
+*/
 async function getMangaList(token, id) {
     return await graphqlRequest(token, `query($userId: Int){
         MediaListCollection(userId: $userId, type: MANGA) {
@@ -80,6 +96,12 @@ async function getMangaList(token, id) {
       }`, {userId: id});
 }
 
+/*
+** Description: Search a manga
+** Parameters: [token] {string}: the token to use for the request
+**             [mangaName] {string}: the name of the manga to search
+** Return: {Promise}: a promise that will be resolved with the value
+*/
 async function searchaManga(token, mangaName) {
     return await graphqlRequest(token, `
     query ($page: Int, $perPage: Int, $search: String) {
@@ -101,6 +123,11 @@ async function searchaManga(token, mangaName) {
     }`, {page: 0, perPage: 10, search: mangaName});
 }
 
+/*
+** Description: Get the media list by id
+** Parameters: [token] {string}: the token to use for the request
+**             [id] {number}: the id of the list
+*/
 async function getMediaListById(token, id) {
     return await graphqlRequest(token, `
     query ($id: Int) {

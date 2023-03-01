@@ -1,3 +1,13 @@
+/* 
+** Description: This module contains functions to include html files in other html files
+** Author: Bastien Boymond
+*/
+
+/*
+** Description: Include html files in other html files
+** Parameters: None
+** Return: None
+*/
 function includeHTML() {
     var z, i, elmnt, file, xhttp;
     z = document.getElementsByTagName("*");
