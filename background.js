@@ -1,5 +1,16 @@
+/*
+** Description: This file is the background script of the extension.
+**              It contains the main logic of the extension.
+** Author: Bastien Boymond
+*/
+
 const baseUrl = "https://www.japscan.lol/"
 
+/*
+** Description: Request GET for REST API that return a boolean
+** Parameters: [url] {string}: the url to request
+** Return: bool: a promise that will be resolved with the value
+*/
 async function requestGet(url){
     let data;
     try {
@@ -19,6 +30,11 @@ async function requestGet(url){
     }
 };
 
+/*
+** Description: Request GET for REST API that return content of request
+** Parameters: [url] {string}: the url to request
+** Return: {Promise}: a promise that will be resolved with the value
+*/
 async function requestGetData(url){
     try {
         const res = await fetch(url, {
@@ -31,6 +47,13 @@ async function requestGetData(url){
     }
 };
 
+/*
+** Description: Request POST for API
+** Parameters: [url] {string}: the url to request
+**             [data] {object}: the data to send
+**             [token] {string}: the token to use for the request (optional)
+** Return: {Promise}: a promise that will be resolved with the value
+*/
 async function requestPost(url, data, token=null) {
     try {
         console.log(token, data, url);
@@ -66,6 +89,14 @@ async function requestPost(url, data, token=null) {
     }
 }
 
+/*
+** Description: Request POST for Anilist API
+** Parameters: [token] {string}: the token to use for the request
+**             [query] {string}: the query to send
+**             [variables] {object}: the variables to send
+** Return: {Promise}: a promise that will be resolved with the value
+*/
+
 async function graphqlRequest(token, query, variables) {
     const url = 'https://graphql.anilist.co';
     const res = await fetch(url, {
@@ -89,6 +120,12 @@ async function graphqlRequest(token, query, variables) {
     }
 }
 
+/*
+** Description: Get MediaList from Anilist API
+** Parameters: [token] {string}: the token to use for the request
+**             [id] {int}: the id of the MediaList
+** Return: {Promise}: a promise that will be resolved with the value
+*/
 async function getMediaListById(token, id) {
     return await graphqlRequest(token, `
     query ($id: Int) {
@@ -109,6 +146,11 @@ async function getMediaListById(token, id) {
     }`, {id: id});
 }
 
+/*
+** Description: Get Stored value from chrome storage
+** Parameters: [key] {string}: the key of the value to get
+** Return: {Promise}: a promise that will be resolved with the value
+*/
 function get_stored_value(key) {
     return new Promise((resolve) => {
         chrome.storage.sync.get(key, function(value) {
@@ -117,6 +159,12 @@ function get_stored_value(key) {
     });
 }
 
+/*
+** Description: Store value in chrome storage
+** Parameters: [key] {string}: the key of the value to store
+**             [value] {string}: the value to store
+** Return: None
+*/
 function store_value(key, value)
 {
     chrome.storage.sync.set({
@@ -124,51 +172,15 @@ function store_value(key, value)
     })
 }
 
-function createMessage(newsPage) {
-    let message;
-    if (newsPage.length === 1) {
-        message = `Le manga : ${newsPage[0]} a un nouveau chapitre de sortie`
-    } else {
-        message = `Les mangas : ${newsPage.join(', ')} ont un nouveau chapitre de sortie`
-    }
-    return message;
-}
-
-function createNotification(newsPage) {
-    let message = createMessage(newsPage);
-    console.log(message);
-    chrome.notifications.create(
-        'JapScan Notification', {
-            type: 'basic',
-            iconUrl: 'popup/assets/japscan.png',
-            title: 'JapScan_PageSaver',
-            message: message,
-            priority: 2,
-        }
-    );
-}
-
-async function check_news() {
-    let newsPage = [];
-    const mangaList = await get_stored_value('allow_news_japscan');
-    if (mangaList && mangaList.length > 0) {
-        console.log(mangaList);
-        const promise = mangaList.map(async (manga) => {
-            const resume = await get_stored_value(manga);
-            url_encoded = encodeURIComponent(`lecture-en-ligne/${manga}/${resume.chapter + 1}/${1}.html`);
-            next_page = await requestGet(`http://141.94.68.137:3900/proxy?url=${url_encoded}`);
-            if (next_page) {
-                newsPage.push(manga);
-                
-            }
-        })
-        await Promise.all(promise);
-        if (newsPage.length > 0) {
-            createNotification(newsPage);
-        }
-    }
-}
-
+/*
+** Description: update the progress of the manga in anilist
+** Parameters: [ids] {object}: the ids of the manga
+**             [chapter] {int}: the chapter to update
+**             [type] {string}: the type of the manga
+**             [page] {int}: the page of the manga
+**             [mangaName] {string}: the name of the manga
+** Return: None
+*/
 async function anilist_update(ids, chapter, type, page, mangaName) {
     console.log(ids, chapter, type, page, mangaName);
     const token = await get_stored_value('anilist_code');
@@ -195,12 +207,22 @@ async function anilist_update(ids, chapter, type, page, mangaName) {
 
 }
 
+/*
+** Description: Parse the message received from the content script
+** Parameters: [msg] {string}: the message received
+** Return: {array}: the data of the message
+*/
 function createData(msg) {
     data = msg.split('/');
     data.shift();
     return data
 }
 
+/*
+** Description: get the stored value of the mangas and update the progress in anilist if we got api key
+** Parameters: [data] {array}: the data of the manga
+** Return: None
+*/
 async function anilist_save(data) {
     const anilist_id = await get_stored_value('anilist_id_' + data[0]);
     const anilist_data = await get_stored_value('anilist_data');
@@ -214,6 +236,11 @@ async function anilist_save(data) {
     });
 }
 
+/*
+** Description: Every Page we save the stats of the manga in the local storage and on the server
+** Parameters: [data] {array}: the data of the manga
+** Return: None
+*/
 async function save_stats(data) {
     const userId = await get_stored_value('user_id');
     const tokenJapscan = await get_stored_value('token_stats');
@@ -235,6 +262,13 @@ async function save_stats(data) {
     store_value('saved_stats_' + data[0], {chapter: data[1], type: data[2], page: data[3]});
 }
 
+/*
+** Description: Get the message from the content script and doing something depending on the message
+** Parameters: [msg] {string}: the message receive
+**             [sender] {object}: the sender of the message
+**             [sendResponse] {function}: the function to send the response
+** Return: {boolean}: true if we need to send a response
+*/
 chrome.runtime.onMessage.addListener(async (msg, sender, sendResponse) => {
     if (msg.text.includes('update/')) {
         data = createData(msg.text);
@@ -251,6 +285,9 @@ async function doSomethingWith(msg) {
     return data;
 }
 
+/*
+** Description: When the extension is installed or updated we open the welcome page
+*/
 chrome.runtime.onInstalled.addListener(function(details){
     let internalUrl = chrome.runtime.getURL("website/welcome/welcome.html");
     if(details.reason == "install"){
