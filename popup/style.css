@@ -249,6 +249,7 @@ div.scrolling {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    overflow-x: hidden;
 }
 
 div.add-button {
@@ -271,6 +272,14 @@ select.select-manga {
     border-radius: 13px;
     outline: none;
     font-size: medium;
+    width: 150px;
+}
+
+option.option-manga {
+    width: 150px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: pre-wrap;
 }
 
 div.japscan-selector {
@@ -368,3 +377,7 @@ h3.manga-title {
       transform: scale(1.5);
     }
   }
+
+.input-manga {
+    margin-top: 10px;
+}

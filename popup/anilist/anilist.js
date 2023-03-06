@@ -1,6 +1,7 @@
 import {get_stored_value, store_value, delete_value} from '../../module/storage.js';
 import { loadtheme } from '../../module/theming.js';
 import { getUser, getMangaList, searchaManga, getMediaListById } from '../../module/anilistRequest.js';
+import { requestGet } from '../../module/request.js';
 
 
 loadtheme();
@@ -48,12 +49,12 @@ function progressBar(nbChapterRead, footer)  {
     }
     const paliers = document.createElement('div');
     paliers.className = 'paliers';
-    createPalier(palier[i - 2], paliers);
     createPalier(palier[i - 1], paliers);
     createPalier(palier[i], paliers);
+    createPalier(palier[i + 1], paliers);
     footer.appendChild(paliers);
-    console.log(palier[i], nbChapterRead,  palier[i] - nbChapterRead, palier[i + 1]);
-    let pourcentage = (palier[i] - nbChapterRead) / (palier[i + 1] - palier[i]) * 100 ;
+    console.log(palier[i + 1], nbChapterRead);
+    let pourcentage = (palier[i + 1] - nbChapterRead) / palier[i + 1] * 100;
     let barre = document.createElement('div');
     barre.className = 'progress-bar';
     barre.style.width = pourcentage + '%';
@@ -115,34 +116,6 @@ function checkifInList(list, id) {
     return false;
 }
 
-function addManualManga(myMangaList) {
-    const addManga = document.createElement('div');
-    addManga.className = 'add-button';
-    const japscanSelector = document.createElement('div');
-    japscanSelector.className = 'japscan-selector';
-    japscanSelector.innerText = 'Japscan Reading List';
-
-    const select = document.createElement('select');
-    select.className = 'select-manga';
-    const option = document.createElement('option');
-    option.innerText = 'Select a manga';
-    select.appendChild(option);
-    for (let i = 0; i < myMangaList.length; i++) {
-        console.log(myMangaList[i], document.getElementsByClassName(`${myMangaList[i]}`)[0]);
-        if (!document.getElementsByClassName(`${myMangaList[i]}`)[0]) {
-            const option = document.createElement('option');
-            option.value = myMangaList[i];
-            option.innerText = myMangaList[i];
-            select.appendChild(option);
-        }
-    }
-    if (select.children.length > 1) {
-        addManga.appendChild(japscanSelector);
-        addManga.appendChild(select);
-        document.getElementsByClassName('anilist-entry')[0].appendChild(addManga);
-    }
-}
-
 function createArrayMangaList(mangaList) {
 
     const myMangaList = [];
@@ -156,10 +129,30 @@ function createArrayMangaList(mangaList) {
     store_value('anilist_data', myMangaList);
 }
 
+async function getAlternativeName(mangaName) {
+    const res = await requestGet('http://141.94.68.137:3900/altenativeName/?manga=' + mangaName);
+    return res;
+
+}
+
+async function tryWithAlternativeName(token, mangaName) {
+    const names = await getAlternativeName(mangaName);
+    for (const name of names) {
+        const data = await searchaManga(token, name);
+        if (data.Page.media.length > 0) {
+            return data.Page.media;
+        }
+    }
+    return null;
+}
+
+
 async function createMangaList(token, data) {
     const myMangaList = await get_stored_value('japscan_manga_name');
     const mangalist = await getMangaList(token,  data.Viewer.id);
     const idList = [];
+    console.log(myMangaList);
+    if (myMangaList == null) return document.getElementsByClassName('anilist-entry')[0].innerText = 'No manga in your japscan reading list';
     for (const manga of myMangaList) {
         const data = await searchaManga(token, manga.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '));
         console.log(data);
@@ -167,6 +160,13 @@ async function createMangaList(token, data) {
             data.Page.media.forEach(m => {
                 idList.push({id:m.id, title:manga});
             });
+        } else {
+            const res = await tryWithAlternativeName(token, manga);
+            if (res != null) {
+                res.forEach(m => {
+                    idList.push({id:m.id, title:manga});
+                });
+            }
         }
     }
     createArrayMangaList(mangalist)
@@ -205,16 +205,18 @@ async function createMangaList(token, data) {
             }
         });
     });
-    addManualManga(myMangaList);
+    document.getElementsByClassName('lds-default')[0].style.display = 'none';
 }
     
 async function checkAnilistToken() {
+    document.getElementsByClassName('lds-default')[0].style.display = 'none';
     const token = await get_stored_value('anilist_code');
     let data = await getUser(token);
     console.log(data);
     if (data) {
         console.log('Token found');
         document.getElementsByClassName('Connect-Anilist')[0].style.display = 'none';
+        document.getElementsByClassName('lds-default')[0].style.display = 'block';
         const test = await getMediaListById(token, 239131111);
         console.log(test);
         createProfile(data);
@@ -222,8 +224,10 @@ async function checkAnilistToken() {
         createMangaList(token, data);
     } else {
         console.log('Token not found');
+
     }
 }
 
 checkAnilistToken();
+
 
