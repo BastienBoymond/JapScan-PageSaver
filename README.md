@@ -29,7 +29,7 @@ This project was a fullstack project he contains:
 
 * A Python3 scrapper on a vps that every hour refresh the data
 * A PostgresSQL database that contains news manga
-* A Express back-end on a vps that connect Database too the Chromme Extension
+* A Express back-end on a vps that connect Database too the Chrome Extension
 * A Chrome extension using vanillaJS and ChartJs 
 
 ## :camera_flash: Images :camera_flash:
