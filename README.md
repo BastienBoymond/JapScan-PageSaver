@@ -23,6 +23,15 @@ But I add some features into it like the following:
 
 To download this extension I invite you to go to this <a href="https://chrome.google.com/webstore/detail/japscanpagesaver/oennheijilebmieelbahckofblcgkljn?hl=fr&authuser=0">link</a>
 
+## :computer: Architecture of project :computer:
+
+This project was a fullstack project
+
+* A Python3 scrapper on a vps that every hour refresh the data
+* A PostgresSQL database that contains news manga
+* A Express back-end on a vps that connect Database too the Chromme Extension
+* A Chrome extension using vanillaJS and ChartJs 
+
 ## :camera_flash: Images :camera_flash:
 
 * Popup View:
