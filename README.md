@@ -25,7 +25,7 @@ To download this extension I invite you to go to this <a href="https://chrome.go
 
 ## :computer: Architecture of project :computer:
 
-This project was a fullstack project
+This project was a fullstack project he contains:
 
 * A Python3 scrapper on a vps that every hour refresh the data
 * A PostgresSQL database that contains news manga
