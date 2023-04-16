@@ -207,14 +207,17 @@ async function darkTheme() {
         if (document.getElementsByTagName('h1')[0]) {
             document.getElementsByTagName('h1')[0].style.color = "white";
         }
-        if (window.location.toString() == "https://www.japscan.lol/") {
-            document.querySelectorAll('p.text-center').forEach(p => {              
-                p.querySelector('.text-dark').className = "text-white";
-            });
-        }
         if (!window.location.toString().includes('lecture-en-ligne')) {
             document.querySelectorAll('.card').forEach(card => {
                 card.style.setProperty('background-color', 'rgb(52, 58, 64)', 'important');
+            });
+            document.querySelectorAll('.nav-link').forEach(nav => {
+                nav.style.setProperty('background-color', 'rgb(52, 58, 64)', 'important');
+                nav.style.setProperty('color', 'white', 'important')
+            });
+
+            document.querySelectorAll('.bg-white').forEach(bg => {
+                bg.style.setProperty('background-color', 'rgb(93, 100, 107)', 'important');
             });
             document.querySelectorAll('.list-group-item').forEach(item => {
                 item.style.setProperty('background-color', 'rgb(52, 58, 64)', 'important');
@@ -232,6 +235,19 @@ async function darkTheme() {
             document.querySelectorAll('.mb-2').forEach(p => {
                 p.className = "mb-2 text-white";
             });
+
+            document.querySelectorAll('.text-truncate').forEach(p => {
+                p.style = "";
+            });
+            
+            document.querySelectorAll('p').forEach(p => {
+                p.style.setProperty('color', 'white', 'important');
+            });
+
+            document.querySelectorAll('.mb-0').forEach(p => {
+                p.style = "";
+            });
+
         }
     }
 }
